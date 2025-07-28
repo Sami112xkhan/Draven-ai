@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    
+    <!-- Draven Brand Colors -->
+    <color name="draven_primary">#FF6366F1</color>
+    <color name="draven_secondary">#FF8B5CF6</color>
+    <color name="draven_accent">#FF06B6D4</color>
+    
+    <!-- Dark Theme Colors -->
+    <color name="dark_background">#FF0F0F23</color>
+    <color name="dark_surface">#FF1A1A2E</color>
+    <color name="dark_on_surface">#FFE2E8F0</color>
+    <color name="dark_on_background">#FFF1F5F9</color>
+    
+    <!-- Glass Effect Colors -->
+    <color name="glass_background">#1AFFFFFF</color>
+    <color name="glass_border">#33FFFFFF</color>
+    <color name="glass_surface">#0DFFFFFF</color>
+    
+    <!-- Chat Bubble Colors -->
+    <color name="user_bubble_color">#FF6366F1</color>
+    <color name="user_bubble_text">#FFFFFFFF</color>
+    <color name="ai_bubble_color">#FF1E293B</color>
+    <color name="ai_bubble_text">#FFE2E8F0</color>
+    
+    <!-- Status Colors -->
+    <color name="success_green">#FF10B981</color>
+    <color name="error_red">#FFEF4444</color>
+    <color name="warning_yellow">#FFF59E0B</color>
+</resources>

@@ -1,0 +1,28 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.samikhan.draven.wear-mergeReleaseResources-26:/values-v28/values-v28.xml",
+            "map": [
+                {
+                    "source": "/Users/samikhan/.gradle/caches/8.13/transforms/3d00c3cf0a5d392a0337b83fd3f0f118/transformed/appcompat-1.3.1/res/values-v28/values-v28.xml",
+                    "from": {
+                        "startLines": "2,3,4,8",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "55,130,217,447",
+                        "endLines": "2,3,7,11",
+                        "endColumns": "74,86,12,12",
+                        "endOffsets": "125,212,442,684"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,8",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "55,130,217,397",
+                        "endLines": "2,3,7,11",
+                        "endColumns": "74,86,12,12",
+                        "endOffsets": "125,212,392,584"
+                    }
+                }
+            ]
+        }
+    ]
+}

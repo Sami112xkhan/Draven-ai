@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="160dp"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@drawable/premium_nav_header_bg"
+    android:padding="20dp">
+
+    <!-- Premium Glass Icon Container -->
+    <FrameLayout
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/premium_icon_container">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🧠"
+            android:textSize="32sp"
+            android:layout_gravity="center" />
+
+    </FrameLayout>
+
+    <!-- App Title -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Draven AI"
+        android:textColor="@color/premium_white"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="6dp"
+        android:fontFamily="sans-serif-light" />
+
+    <!-- Subtitle -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Premium AI Assistant"
+        android:textColor="@color/premium_gold"
+        android:textSize="13sp"
+        android:fontFamily="sans-serif-light"
+        android:alpha="0.9" />
+
+    <!-- Decorative Line -->
+    <View
+        android:layout_width="60dp"
+        android:layout_height="2dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/premium_divider" />
+
+</LinearLayout> 

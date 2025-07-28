@@ -1,0 +1,70 @@
+[
+    {
+        "merged": "com.samikhan.draven.wear-release-28:/mipmap-hdpi_ic_launcher.png.flat",
+        "source": "com.samikhan.draven.wear-main-29:/mipmap-hdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.samikhan.draven.wear-release-28:/mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "com.samikhan.draven.wear-main-29:/mipmap-xxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.samikhan.draven.wear-release-28:/mipmap-xxxhdpi_ic_launcher_round.png.flat",
+        "source": "com.samikhan.draven.wear-main-29:/mipmap-xxxhdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "com.samikhan.draven.wear-release-28:/mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "com.samikhan.draven.wear-main-29:/mipmap-xhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.samikhan.draven.wear-release-28:/drawable_message_bg.xml.flat",
+        "source": "com.samikhan.draven.wear-main-29:/drawable/message_bg.xml"
+    },
+    {
+        "merged": "com.samikhan.draven.wear-release-28:/mipmap-xxxhdpi_ic_launcher.png.flat",
+        "source": "com.samikhan.draven.wear-main-29:/mipmap-xxxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.samikhan.draven.wear-release-28:/layout_activity_main.xml.flat",
+        "source": "com.samikhan.draven.wear-main-29:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.samikhan.draven.wear-release-28:/mipmap-mdpi_ic_launcher_round.png.flat",
+        "source": "com.samikhan.draven.wear-main-29:/mipmap-mdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "com.samikhan.draven.wear-release-28:/mipmap-mdpi_ic_launcher.png.flat",
+        "source": "com.samikhan.draven.wear-main-29:/mipmap-mdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.samikhan.draven.wear-release-28:/mipmap-xxhdpi_ic_launcher_round.png.flat",
+        "source": "com.samikhan.draven.wear-main-29:/mipmap-xxhdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "com.samikhan.draven.wear-release-28:/layout_message_item.xml.flat",
+        "source": "com.samikhan.draven.wear-main-29:/layout/message_item.xml"
+    },
+    {
+        "merged": "com.samikhan.draven.wear-release-28:/mipmap-xhdpi_ic_launcher_round.png.flat",
+        "source": "com.samikhan.draven.wear-main-29:/mipmap-xhdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "com.samikhan.draven.wear-release-28:/mipmap-hdpi_ic_launcher_round.png.flat",
+        "source": "com.samikhan.draven.wear-main-29:/mipmap-hdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "com.samikhan.draven.wear-release-28:/drawable_user_message_bg.xml.flat",
+        "source": "com.samikhan.draven.wear-main-29:/drawable/user_message_bg.xml"
+    },
+    {
+        "merged": "com.samikhan.draven.wear-release-28:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.samikhan.draven.wear-main-29:/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "com.samikhan.draven.wear-release-28:/drawable_voice_button_bg.xml.flat",
+        "source": "com.samikhan.draven.wear-main-29:/drawable/voice_button_bg.xml"
+    },
+    {
+        "merged": "com.samikhan.draven.wear-release-28:/drawable_ai_message_bg.xml.flat",
+        "source": "com.samikhan.draven.wear-main-29:/drawable/ai_message_bg.xml"
+    }
+]

@@ -1,0 +1,105 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.samikhan.draven"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="25"
+9        android:targetSdkVersion="28" />
+10
+11    <uses-feature android:name="android.hardware.type.watch" />
+11-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:4:5-64
+11-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:4:19-61
+12
+13    <uses-permission android:name="android.permission.WAKE_LOCK" />
+13-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:5:5-68
+13-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:5:22-65
+14    <uses-permission android:name="android.permission.INTERNET" />
+14-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:6:5-67
+14-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:6:22-64
+15
+16    <application
+16-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:8:5-36:19
+17        android:name="com.samikhan.draven.DravenApplication"
+17-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:9:9-42
+18        android:allowBackup="true"
+18-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:10:9-35
+19        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+19-->[androidx.core:core:1.7.0] /Users/samikhan/.gradle/caches/8.13/transforms/d7991905be3ee0f17deba9a7069ca69a/transformed/core-1.7.0/AndroidManifest.xml:24:18-86
+20        android:extractNativeLibs="false"
+21        android:icon="@mipmap/ic_launcher"
+21-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:11:9-43
+22        android:label="@string/app_name"
+22-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:12:9-41
+23        android:roundIcon="@mipmap/ic_launcher_round"
+23-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:13:9-54
+24        android:supportsRtl="true"
+24-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:14:9-35
+25        android:theme="@android:style/Theme.DeviceDefault" >
+25-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:15:9-59
+26        <uses-library
+26-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:17:9-19:39
+27            android:name="com.google.android.wearable"
+27-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:18:13-55
+28            android:required="true" />
+28-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:19:13-36
+29
+30        <meta-data
+30-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:21:9-23:36
+31            android:name="com.google.android.wearable.standalone"
+31-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:22:13-66
+32            android:value="true" />
+32-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:23:13-33
+33
+34        <activity
+34-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:25:9-35:20
+35            android:name="com.samikhan.draven.MainActivity"
+35-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:26:13-41
+36            android:exported="true"
+36-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:27:13-36
+37            android:launchMode="singleTask"
+37-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:30:13-44
+38            android:taskAffinity=""
+38-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:29:13-36
+39            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
+39-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:28:13-69
+40            <intent-filter>
+40-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:31:13-34:29
+41                <action android:name="android.intent.action.MAIN" />
+41-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:32:17-69
+41-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:32:25-66
+42
+43                <category android:name="android.intent.category.LAUNCHER" />
+43-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:33:17-77
+43-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:33:27-74
+44            </intent-filter>
+45        </activity>
+46
+47        <service
+47-->[androidx.room:room-runtime:2.4.3] /Users/samikhan/.gradle/caches/8.13/transforms/7a13c55ab4d3c73a3d73694fda73503c/transformed/room-runtime-2.4.3/AndroidManifest.xml:25:9-28:40
+48            android:name="androidx.room.MultiInstanceInvalidationService"
+48-->[androidx.room:room-runtime:2.4.3] /Users/samikhan/.gradle/caches/8.13/transforms/7a13c55ab4d3c73a3d73694fda73503c/transformed/room-runtime-2.4.3/AndroidManifest.xml:26:13-74
+49            android:directBootAware="true"
+49-->[androidx.room:room-runtime:2.4.3] /Users/samikhan/.gradle/caches/8.13/transforms/7a13c55ab4d3c73a3d73694fda73503c/transformed/room-runtime-2.4.3/AndroidManifest.xml:27:13-43
+50            android:exported="false" />
+50-->[androidx.room:room-runtime:2.4.3] /Users/samikhan/.gradle/caches/8.13/transforms/7a13c55ab4d3c73a3d73694fda73503c/transformed/room-runtime-2.4.3/AndroidManifest.xml:28:13-37
+51
+52        <activity
+52-->[com.google.android.gms:play-services-base:17.5.0] /Users/samikhan/.gradle/caches/8.13/transforms/a4a7de9b7ecaacfe57762d1b4b1079a8/transformed/play-services-base-17.5.0/AndroidManifest.xml:23:9-26:75
+53            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+53-->[com.google.android.gms:play-services-base:17.5.0] /Users/samikhan/.gradle/caches/8.13/transforms/a4a7de9b7ecaacfe57762d1b4b1079a8/transformed/play-services-base-17.5.0/AndroidManifest.xml:24:13-79
+54            android:exported="false"
+54-->[com.google.android.gms:play-services-base:17.5.0] /Users/samikhan/.gradle/caches/8.13/transforms/a4a7de9b7ecaacfe57762d1b4b1079a8/transformed/play-services-base-17.5.0/AndroidManifest.xml:25:13-37
+55            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+55-->[com.google.android.gms:play-services-base:17.5.0] /Users/samikhan/.gradle/caches/8.13/transforms/a4a7de9b7ecaacfe57762d1b4b1079a8/transformed/play-services-base-17.5.0/AndroidManifest.xml:26:13-72
+56
+57        <meta-data
+57-->[com.google.android.gms:play-services-basement:17.5.0] /Users/samikhan/.gradle/caches/8.13/transforms/53cd5f8b12304e94cbc95ff12ee0b863/transformed/play-services-basement-17.5.0/AndroidManifest.xml:23:9-25:69
+58            android:name="com.google.android.gms.version"
+58-->[com.google.android.gms:play-services-basement:17.5.0] /Users/samikhan/.gradle/caches/8.13/transforms/53cd5f8b12304e94cbc95ff12ee0b863/transformed/play-services-basement-17.5.0/AndroidManifest.xml:24:13-58
+59            android:value="@integer/google_play_services_version" />
+59-->[com.google.android.gms:play-services-basement:17.5.0] /Users/samikhan/.gradle/caches/8.13/transforms/53cd5f8b12304e94cbc95ff12ee0b863/transformed/play-services-basement-17.5.0/AndroidManifest.xml:25:13-66
+60    </application>
+61
+62</manifest>

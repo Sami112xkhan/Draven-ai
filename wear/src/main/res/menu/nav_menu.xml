@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_chat"
+            android:icon="@drawable/ic_chat"
+            android:title="💬 Chat with Draven"
+            android:summary="Send text messages" />
+        
+        <item
+            android:id="@+id/nav_voice_mode"
+            android:icon="@drawable/ic_mic"
+            android:title="🎤 Voice Mode"
+            android:summary="Enable voice input &amp; output" />
+        
+        <item
+            android:id="@+id/nav_critical_thinking"
+            android:icon="@drawable/ic_brain"
+            android:title="🧠 Critical Thinking"
+            android:summary="Detailed analysis mode" />
+        
+        <item
+            android:id="@+id/nav_clear_history"
+            android:icon="@drawable/ic_clear"
+            android:title="🗑️ Clear History"
+            android:summary="Delete all chat messages" />
+    </group>
+    
+</menu> 

@@ -1,0 +1,1345 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<incidents format="6" by="lint 8.11.1" type="incidents">
+
+    <incident
+        id="GradleDependency"
+        severity="warning"
+        message="A newer version of `compileSdkVersion` than 31 is available: 36">
+        <fix-replace
+            description="Set compileSdkVersion to 36"
+            oldString="31"
+            replacement="36"
+            priority="0"/>
+        <location
+            file="${:wear*projectDir}/build.gradle.kts"
+            line="8"
+            column="5"
+            startOffset="129"
+            endLine="8"
+            endColumn="20"
+            endOffset="144"/>
+    </incident>
+
+    <incident
+        id="GradleDependency"
+        severity="warning"
+        message="A newer version of androidx.wear:wear than 1.2.0 is available: 1.3.0">
+        <fix-replace
+            description="Change to 1.3.0"
+            family="Update versions"
+            oldString="1.2.0"
+            replacement="1.3.0"
+            priority="0"/>
+        <location
+            file="${:wear*projectDir}/build.gradle.kts"
+            line="39"
+            column="20"
+            startOffset="977"
+            endLine="39"
+            endColumn="46"
+            endOffset="1003"/>
+    </incident>
+
+    <incident
+        id="GradleDependency"
+        severity="warning"
+        message="A newer version of androidx.core:core-ktx than 1.6.0 is available: 1.16.0">
+        <fix-replace
+            description="Change to 1.16.0"
+            family="Update versions"
+            oldString="1.6.0"
+            replacement="1.16.0"
+            priority="0"/>
+        <location
+            file="${:wear*projectDir}/build.gradle.kts"
+            line="40"
+            column="20"
+            startOffset="1024"
+            endLine="40"
+            endColumn="50"
+            endOffset="1054"/>
+    </incident>
+
+    <incident
+        id="GradleDependency"
+        severity="warning"
+        message="A newer version of androidx.appcompat:appcompat than 1.3.1 is available: 1.7.1">
+        <fix-replace
+            description="Change to 1.7.1"
+            family="Update versions"
+            oldString="1.3.1"
+            replacement="1.7.1"
+            priority="0"/>
+        <location
+            file="${:wear*projectDir}/build.gradle.kts"
+            line="41"
+            column="20"
+            startOffset="1075"
+            endLine="41"
+            endColumn="56"
+            endOffset="1111"/>
+    </incident>
+
+    <incident
+        id="GradleDependency"
+        severity="warning"
+        message="A newer version of androidx.wear:wear-remote-interactions than 1.0.0 is available: 1.1.0">
+        <fix-replace
+            description="Change to 1.1.0"
+            family="Update versions"
+            oldString="1.0.0"
+            replacement="1.1.0"
+            priority="0"/>
+        <location
+            file="${:wear*projectDir}/build.gradle.kts"
+            line="44"
+            column="20"
+            startOffset="1157"
+            endLine="44"
+            endColumn="66"
+            endOffset="1203"/>
+    </incident>
+
+    <incident
+        id="GradleDependency"
+        severity="warning"
+        message="A newer version of com.google.android.gms:play-services-wearable than 17.1.0 is available: 19.0.0">
+        <fix-replace
+            description="Change to 19.0.0"
+            family="Update versions"
+            oldString="17.1.0"
+            replacement="19.0.0"
+            priority="0"/>
+        <location
+            file="${:wear*projectDir}/build.gradle.kts"
+            line="45"
+            column="20"
+            startOffset="1224"
+            endLine="45"
+            endColumn="74"
+            endOffset="1278"/>
+    </incident>
+
+    <incident
+        id="GradleDependency"
+        severity="warning"
+        message="A newer version of androidx.room:room-runtime than 2.4.3 is available: 2.7.2">
+        <fix-replace
+            description="Change to 2.7.2"
+            family="Update versions"
+            oldString="2.4.3"
+            replacement="2.7.2"
+            priority="0"/>
+        <location
+            file="${:wear*projectDir}/build.gradle.kts"
+            line="48"
+            column="20"
+            startOffset="1321"
+            endLine="48"
+            endColumn="54"
+            endOffset="1355"/>
+    </incident>
+
+    <incident
+        id="GradleDependency"
+        severity="warning"
+        message="A newer version of androidx.room:room-ktx than 2.4.3 is available: 2.7.2">
+        <fix-replace
+            description="Change to 2.7.2"
+            family="Update versions"
+            oldString="2.4.3"
+            replacement="2.7.2"
+            priority="0"/>
+        <location
+            file="${:wear*projectDir}/build.gradle.kts"
+            line="49"
+            column="20"
+            startOffset="1376"
+            endLine="49"
+            endColumn="50"
+            endOffset="1406"/>
+    </incident>
+
+    <incident
+        id="GradleDependency"
+        severity="warning"
+        message="A newer version of androidx.room:room-compiler than 2.4.3 is available: 2.7.2">
+        <fix-replace
+            description="Change to 2.7.2"
+            family="Update versions"
+            oldString="2.4.3"
+            replacement="2.7.2"
+            priority="0"/>
+        <location
+            file="${:wear*projectDir}/build.gradle.kts"
+            line="50"
+            column="10"
+            startOffset="1417"
+            endLine="50"
+            endColumn="45"
+            endOffset="1452"/>
+    </incident>
+
+    <incident
+        id="GradleDependency"
+        severity="warning"
+        message="A newer version of androidx.datastore:datastore-preferences than 1.0.0 is available: 1.1.7">
+        <fix-replace
+            description="Change to 1.1.7"
+            family="Update versions"
+            oldString="1.0.0"
+            replacement="1.1.7"
+            priority="0"/>
+        <location
+            file="${:wear*projectDir}/build.gradle.kts"
+            line="53"
+            column="20"
+            startOffset="1491"
+            endLine="53"
+            endColumn="68"
+            endOffset="1539"/>
+    </incident>
+
+    <incident
+        id="GradleDependency"
+        severity="warning"
+        message="A newer version of androidx.lifecycle:lifecycle-viewmodel-ktx than 2.4.1 is available: 2.9.2">
+        <fix-replace
+            description="Change to 2.9.2"
+            family="Update versions"
+            oldString="2.4.1"
+            replacement="2.9.2"
+            priority="0"/>
+        <location
+            file="${:wear*projectDir}/build.gradle.kts"
+            line="61"
+            column="20"
+            startOffset="1793"
+            endLine="61"
+            endColumn="70"
+            endOffset="1843"/>
+    </incident>
+
+    <incident
+        id="GradleDependency"
+        severity="warning"
+        message="A newer version of androidx.lifecycle:lifecycle-runtime-ktx than 2.4.1 is available: 2.9.2">
+        <fix-replace
+            description="Change to 2.9.2"
+            family="Update versions"
+            oldString="2.4.1"
+            replacement="2.9.2"
+            priority="0"/>
+        <location
+            file="${:wear*projectDir}/build.gradle.kts"
+            line="62"
+            column="20"
+            startOffset="1864"
+            endLine="62"
+            endColumn="68"
+            endOffset="1912"/>
+    </incident>
+
+    <incident
+        id="GradleDependency"
+        severity="warning"
+        message="A newer version of androidx.activity:activity-ktx than 1.4.0 is available: 1.10.1">
+        <fix-replace
+            description="Change to 1.10.1"
+            family="Update versions"
+            oldString="1.4.0"
+            replacement="1.10.1"
+            priority="0"/>
+        <location
+            file="${:wear*projectDir}/build.gradle.kts"
+            line="65"
+            column="20"
+            startOffset="1960"
+            endLine="65"
+            endColumn="58"
+            endOffset="1998"/>
+    </incident>
+
+    <incident
+        id="NewerVersionAvailable"
+        severity="warning"
+        message="A newer version of com.squareup.retrofit2:retrofit than 2.9.0 is available: 3.0.0">
+        <fix-replace
+            description="Change to 3.0.0"
+            family="Update versions"
+            oldString="2.9.0"
+            replacement="3.0.0"
+            priority="0"/>
+        <location
+            file="${:wear*projectDir}/build.gradle.kts"
+            line="56"
+            column="20"
+            startOffset="1579"
+            endLine="56"
+            endColumn="59"
+            endOffset="1618"/>
+    </incident>
+
+    <incident
+        id="NewerVersionAvailable"
+        severity="warning"
+        message="A newer version of com.squareup.retrofit2:converter-gson than 2.9.0 is available: 3.0.0">
+        <fix-replace
+            description="Change to 3.0.0"
+            family="Update versions"
+            oldString="2.9.0"
+            replacement="3.0.0"
+            priority="0"/>
+        <location
+            file="${:wear*projectDir}/build.gradle.kts"
+            line="57"
+            column="20"
+            startOffset="1639"
+            endLine="57"
+            endColumn="65"
+            endOffset="1684"/>
+    </incident>
+
+    <incident
+        id="NewerVersionAvailable"
+        severity="warning"
+        message="A newer version of com.squareup.okhttp3:okhttp than 4.9.3 is available: 5.1.0">
+        <fix-replace
+            description="Change to 5.1.0"
+            family="Update versions"
+            oldString="4.9.3"
+            replacement="5.1.0"
+            priority="0"/>
+        <location
+            file="${:wear*projectDir}/build.gradle.kts"
+            line="58"
+            column="20"
+            startOffset="1705"
+            endLine="58"
+            endColumn="55"
+            endOffset="1740"/>
+    </incident>
+
+    <incident
+        id="GetInstance"
+        severity="warning"
+        message="`Cipher.getInstance` should not be called without setting the encryption mode and padding">
+        <location
+            file="${:wear*debug*MAIN*sourceProvider*0*javaDir*0}/com/samikhan/draven/data/security/SecurityUtils.kt"
+            line="12"
+            column="41"
+            startOffset="340"
+            endLine="12"
+            endColumn="55"
+            endOffset="354"/>
+    </incident>
+
+    <incident
+        id="GetInstance"
+        severity="warning"
+        message="`Cipher.getInstance` should not be called without setting the encryption mode and padding">
+        <location
+            file="${:wear*debug*MAIN*sourceProvider*0*javaDir*0}/com/samikhan/draven/data/security/SecurityUtils.kt"
+            line="20"
+            column="41"
+            startOffset="705"
+            endLine="20"
+            endColumn="55"
+            endOffset="719"/>
+    </incident>
+
+    <incident
+        id="ExpiredTargetSdkVersion"
+        severity="fatal"
+        message="Google Play requires that apps target API level 30 or higher.">
+        <location
+            file="${:wear*projectDir}/build.gradle.kts"
+            line="23"
+            column="9"
+            startOffset="567"
+            endLine="23"
+            endColumn="23"
+            endOffset="581"/>
+    </incident>
+
+    <incident
+        id="KaptUsageInsteadOfKsp"
+        severity="warning"
+        message="This library supports using KSP instead of kapt, which greatly improves performance. Learn more: https://developer.android.com/studio/build/migrate-to-ksp">
+        <show-url
+            description="Learn about how to enable KSP and use the KSP processor for this dependency instead"
+            url="https://developer.android.com/studio/build/migrate-to-ksp"/>
+        <location
+            file="${:wear*projectDir}/build.gradle.kts"
+            line="50"
+            column="5"
+            startOffset="1412"
+            endLine="50"
+            endColumn="46"
+            endOffset="1453"/>
+    </incident>
+
+    <incident
+        id="Overdraw"
+        severity="warning"
+        message="Possible overdraw: Root element paints background `#0A0A0F` with a theme that also paints a background (inferred theme is `@style/Theme_AppCompat_Light_NoActionBar`)">
+        <location
+            file="${:wear*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_main.xml"
+            line="6"
+            column="5"
+            startOffset="232"
+            endLine="6"
+            endColumn="33"
+            endOffset="260"/>
+    </incident>
+
+    <incident
+        id="IconLauncherShape"
+        severity="warning"
+        message="Launcher icons should not fill every pixel of their square region; see the design guide for details">
+        <location
+            file="${:wear*debug*MAIN*sourceProvider*0*resDir*0}/mipmap-hdpi/ic_launcher.png"/>
+    </incident>
+
+    <incident
+        id="IconLauncherShape"
+        severity="warning"
+        message="Launcher icons should not fill every pixel of their square region; see the design guide for details">
+        <location
+            file="${:wear*debug*MAIN*sourceProvider*0*resDir*0}/mipmap-mdpi/ic_launcher.png"/>
+    </incident>
+
+    <incident
+        id="IconLauncherShape"
+        severity="warning"
+        message="Launcher icons should not fill every pixel of their square region; see the design guide for details">
+        <location
+            file="${:wear*debug*MAIN*sourceProvider*0*resDir*0}/mipmap-xhdpi/ic_launcher.png"/>
+    </incident>
+
+    <incident
+        id="IconLauncherShape"
+        severity="warning"
+        message="Launcher icons should not fill every pixel of their square region; see the design guide for details">
+        <location
+            file="${:wear*debug*MAIN*sourceProvider*0*resDir*0}/mipmap-xxhdpi/ic_launcher.png"/>
+    </incident>
+
+    <incident
+        id="IconLauncherShape"
+        severity="warning"
+        message="Launcher icons should not fill every pixel of their square region; see the design guide for details">
+        <location
+            file="${:wear*debug*MAIN*sourceProvider*0*resDir*0}/mipmap-xxxhdpi/ic_launcher.png"/>
+    </incident>
+
+    <incident
+        id="IconLauncherShape"
+        severity="warning"
+        message="Launcher icon used as round icon did not have a circular shape">
+        <location
+            file="${:wear*debug*MAIN*sourceProvider*0*resDir*0}/mipmap-hdpi/ic_launcher_round.png"/>
+    </incident>
+
+    <incident
+        id="IconLauncherShape"
+        severity="warning"
+        message="Launcher icon used as round icon did not have a circular shape">
+        <location
+            file="${:wear*debug*MAIN*sourceProvider*0*resDir*0}/mipmap-mdpi/ic_launcher_round.png"/>
+    </incident>
+
+    <incident
+        id="IconLauncherShape"
+        severity="warning"
+        message="Launcher icon used as round icon did not have a circular shape">
+        <location
+            file="${:wear*debug*MAIN*sourceProvider*0*resDir*0}/mipmap-xhdpi/ic_launcher_round.png"/>
+    </incident>
+
+    <incident
+        id="IconLauncherShape"
+        severity="warning"
+        message="Launcher icon used as round icon did not have a circular shape">
+        <location
+            file="${:wear*debug*MAIN*sourceProvider*0*resDir*0}/mipmap-xxhdpi/ic_launcher_round.png"/>
+    </incident>
+
+    <incident
+        id="IconLauncherShape"
+        severity="warning"
+        message="Launcher icon used as round icon did not have a circular shape">
+        <location
+            file="${:wear*debug*MAIN*sourceProvider*0*resDir*0}/mipmap-xxxhdpi/ic_launcher_round.png"/>
+    </incident>
+
+    <incident
+        id="IconDuplicates"
+        severity="warning"
+        message="The following unrelated icon files have identical contents: ic_launcher.png, ic_launcher_round.png">
+        <location
+            file="${:wear*debug*MAIN*sourceProvider*0*resDir*0}/mipmap-hdpi/ic_launcher_round.png"/>
+        <location
+            file="${:wear*debug*MAIN*sourceProvider*0*resDir*0}/mipmap-hdpi/ic_launcher.png"/>
+    </incident>
+
+    <incident
+        id="IconDuplicates"
+        severity="warning"
+        message="The following unrelated icon files have identical contents: ic_launcher.png, ic_launcher_round.png">
+        <location
+            file="${:wear*debug*MAIN*sourceProvider*0*resDir*0}/mipmap-mdpi/ic_launcher_round.png"/>
+        <location
+            file="${:wear*debug*MAIN*sourceProvider*0*resDir*0}/mipmap-mdpi/ic_launcher.png"/>
+    </incident>
+
+    <incident
+        id="IconDuplicates"
+        severity="warning"
+        message="The following unrelated icon files have identical contents: ic_launcher.png, ic_launcher_round.png">
+        <location
+            file="${:wear*debug*MAIN*sourceProvider*0*resDir*0}/mipmap-xhdpi/ic_launcher_round.png"/>
+        <location
+            file="${:wear*debug*MAIN*sourceProvider*0*resDir*0}/mipmap-xhdpi/ic_launcher.png"/>
+    </incident>
+
+    <incident
+        id="IconDuplicates"
+        severity="warning"
+        message="The following unrelated icon files have identical contents: ic_launcher.png, ic_launcher_round.png">
+        <location
+            file="${:wear*debug*MAIN*sourceProvider*0*resDir*0}/mipmap-xxhdpi/ic_launcher_round.png"/>
+        <location
+            file="${:wear*debug*MAIN*sourceProvider*0*resDir*0}/mipmap-xxhdpi/ic_launcher.png"/>
+    </incident>
+
+    <incident
+        id="IconDuplicates"
+        severity="warning"
+        message="The following unrelated icon files have identical contents: ic_launcher.png, ic_launcher_round.png">
+        <location
+            file="${:wear*debug*MAIN*sourceProvider*0*resDir*0}/mipmap-xxxhdpi/ic_launcher_round.png"/>
+        <location
+            file="${:wear*debug*MAIN*sourceProvider*0*resDir*0}/mipmap-xxxhdpi/ic_launcher.png"/>
+    </incident>
+
+    <incident
+        id="UseTomlInstead"
+        severity="warning"
+        message="Use version catalog instead">
+        <fix-composite
+            description="Replace with new library catalog declaration for wear"
+            robot="true">
+            <fix-replace
+                description="Replace with wearVersion = &quot;1.2.0&quot;..."
+                robot="true"
+                oldString="_lint_insert_begin_"
+                replacement="wearVersion = &quot;1.2.0&quot;&#xA;"
+                priority="0">
+                <range
+                    file="$HOME/Developer/Draven/gradle/libs.versions.toml"
+                    startOffset="416"
+                    endOffset="416"/>
+            </fix-replace>
+            <fix-replace
+                description="Replace with wear = { module = &quot;androidx.wear:wear&quot;, version.ref = &quot;wearVersion&quot; }..."
+                robot="true"
+                oldString="_lint_insert_begin_"
+                replacement="wear = { module = &quot;androidx.wear:wear&quot;, version.ref = &quot;wearVersion&quot; }&#xA;"
+                priority="0">
+                <range
+                    file="$HOME/Developer/Draven/gradle/libs.versions.toml"
+                    startOffset="3298"
+                    endOffset="3298"/>
+            </fix-replace>
+            <fix-replace
+                description="Replace with libs.wear"
+                robot="true"
+                replacement="libs.wear"
+                priority="0">
+                <range
+                    file="${:wear*projectDir}/build.gradle.kts"
+                    startOffset="977"
+                    endOffset="1003"/>
+            </fix-replace>
+        </fix-composite>
+        <location
+            file="${:wear*projectDir}/build.gradle.kts"
+            line="39"
+            column="20"
+            startOffset="977"
+            endLine="39"
+            endColumn="46"
+            endOffset="1003"/>
+    </incident>
+
+    <incident
+        id="UseTomlInstead"
+        severity="warning"
+        message="Use version catalog instead (androidx.core:core-ktx is already available as `androidx-core-ktx`, but using version 1.16.0 instead)">
+        <fix-alternatives>
+            <fix-composite
+                description="Replace with new library catalog declaration for core-ktx-v160"
+                robot="true"
+                independent="true">
+                <fix-replace
+                    description="Replace with androidxCoreKtx = &quot;1.6.0&quot;..."
+                    robot="true"
+                    independent="true"
+                    oldString="_lint_insert_begin_"
+                    replacement="androidxCoreKtx = &quot;1.6.0&quot;&#xA;"
+                    priority="0">
+                    <range
+                        file="$HOME/Developer/Draven/gradle/libs.versions.toml"
+                        startOffset="26"
+                        endOffset="26"/>
+                </fix-replace>
+                <fix-replace
+                    description="Replace with core-ktx-v160 = { module = &quot;androidx.core:core-ktx&quot;, version.ref = &quot;androidxCoreKtx&quot; }..."
+                    robot="true"
+                    independent="true"
+                    oldString="_lint_insert_begin_"
+                    replacement="core-ktx-v160 = { module = &quot;androidx.core:core-ktx&quot;, version.ref = &quot;androidxCoreKtx&quot; }&#xA;"
+                    priority="0">
+                    <range
+                        file="$HOME/Developer/Draven/gradle/libs.versions.toml"
+                        startOffset="521"
+                        endOffset="521"/>
+                </fix-replace>
+                <fix-replace
+                    description="Replace with libs.core.ktx.v160"
+                    robot="true"
+                    independent="true"
+                    replacement="libs.core.ktx.v160"
+                    priority="0">
+                    <range
+                        file="${:wear*projectDir}/build.gradle.kts"
+                        startOffset="1024"
+                        endOffset="1054"/>
+                </fix-replace>
+            </fix-composite>
+            <fix-replace
+                description="Replace with existing version catalog reference `androidx-core-ktx` (version 1.16.0)"
+                replacement="libs.androidx.core.ktx"
+                priority="0">
+                <range
+                    file="${:wear*projectDir}/build.gradle.kts"
+                    startOffset="1024"
+                    endOffset="1054"/>
+            </fix-replace>
+        </fix-alternatives>
+        <location
+            file="${:wear*projectDir}/build.gradle.kts"
+            line="40"
+            column="20"
+            startOffset="1024"
+            endLine="40"
+            endColumn="50"
+            endOffset="1054"/>
+    </incident>
+
+    <incident
+        id="UseTomlInstead"
+        severity="warning"
+        message="Use version catalog instead">
+        <fix-composite
+            description="Replace with new library catalog declaration for appcompat"
+            robot="true">
+            <fix-replace
+                description="Replace with appcompatVersion = &quot;1.3.1&quot;..."
+                robot="true"
+                oldString="_lint_insert_begin_"
+                replacement="appcompatVersion = &quot;1.3.1&quot;&#xA;"
+                priority="0">
+                <range
+                    file="$HOME/Developer/Draven/gradle/libs.versions.toml"
+                    startOffset="26"
+                    endOffset="26"/>
+            </fix-replace>
+            <fix-replace
+                description="Replace with appcompat = { module = &quot;androidx.appcompat:appcompat&quot;, version.ref = &quot;appcompatVersion&quot; }..."
+                robot="true"
+                oldString="_lint_insert_begin_"
+                replacement="appcompat = { module = &quot;androidx.appcompat:appcompat&quot;, version.ref = &quot;appcompatVersion&quot; }&#xA;"
+                priority="0">
+                <range
+                    file="$HOME/Developer/Draven/gradle/libs.versions.toml"
+                    startOffset="521"
+                    endOffset="521"/>
+            </fix-replace>
+            <fix-replace
+                description="Replace with libs.appcompat"
+                robot="true"
+                replacement="libs.appcompat"
+                priority="0">
+                <range
+                    file="${:wear*projectDir}/build.gradle.kts"
+                    startOffset="1075"
+                    endOffset="1111"/>
+            </fix-replace>
+        </fix-composite>
+        <location
+            file="${:wear*projectDir}/build.gradle.kts"
+            line="41"
+            column="20"
+            startOffset="1075"
+            endLine="41"
+            endColumn="56"
+            endOffset="1111"/>
+    </incident>
+
+    <incident
+        id="UseTomlInstead"
+        severity="warning"
+        message="Use version catalog instead">
+        <fix-composite
+            description="Replace with new library catalog declaration for wear-remote-interactions"
+            robot="true">
+            <fix-replace
+                description="Replace with wearRemoteInteractionsVersion = &quot;1.0.0&quot;..."
+                robot="true"
+                oldString="_lint_insert_begin_"
+                replacement="wearRemoteInteractionsVersion = &quot;1.0.0&quot;&#xA;"
+                priority="0">
+                <range
+                    file="$HOME/Developer/Draven/gradle/libs.versions.toml"
+                    startOffset="416"
+                    endOffset="416"/>
+            </fix-replace>
+            <fix-replace
+                description="Replace with wear-remote-interactions = { module = &quot;androidx.wear:wear-remote-interactions&quot;, version.ref = &quot;wearRemoteInteractionsVersion&quot; }..."
+                robot="true"
+                oldString="_lint_insert_begin_"
+                replacement="wear-remote-interactions = { module = &quot;androidx.wear:wear-remote-interactions&quot;, version.ref = &quot;wearRemoteInteractionsVersion&quot; }&#xA;"
+                priority="0">
+                <range
+                    file="$HOME/Developer/Draven/gradle/libs.versions.toml"
+                    startOffset="3298"
+                    endOffset="3298"/>
+            </fix-replace>
+            <fix-replace
+                description="Replace with libs.wear.remote.interactions"
+                robot="true"
+                replacement="libs.wear.remote.interactions"
+                priority="0">
+                <range
+                    file="${:wear*projectDir}/build.gradle.kts"
+                    startOffset="1157"
+                    endOffset="1203"/>
+            </fix-replace>
+        </fix-composite>
+        <location
+            file="${:wear*projectDir}/build.gradle.kts"
+            line="44"
+            column="20"
+            startOffset="1157"
+            endLine="44"
+            endColumn="66"
+            endOffset="1203"/>
+    </incident>
+
+    <incident
+        id="UseTomlInstead"
+        severity="warning"
+        message="Use version catalog instead">
+        <fix-composite
+            description="Replace with new library catalog declaration for gms-play-services-wearable"
+            robot="true">
+            <fix-replace
+                description="Replace with playServicesWearableVersion = &quot;17.1.0&quot;..."
+                robot="true"
+                oldString="_lint_insert_begin_"
+                replacement="playServicesWearableVersion = &quot;17.1.0&quot;&#xA;"
+                priority="0">
+                <range
+                    file="$HOME/Developer/Draven/gradle/libs.versions.toml"
+                    startOffset="209"
+                    endOffset="209"/>
+            </fix-replace>
+            <fix-replace
+                description="Replace with gms-play-services-wearable = { module = &quot;com.google.android.gms:play-services-wearable&quot;, version.ref = &quot;playServicesWearableVersion&quot; }..."
+                robot="true"
+                oldString="_lint_insert_begin_"
+                replacement="gms-play-services-wearable = { module = &quot;com.google.android.gms:play-services-wearable&quot;, version.ref = &quot;playServicesWearableVersion&quot; }&#xA;"
+                priority="0">
+                <range
+                    file="$HOME/Developer/Draven/gradle/libs.versions.toml"
+                    startOffset="521"
+                    endOffset="521"/>
+            </fix-replace>
+            <fix-replace
+                description="Replace with libs.gms.play.services.wearable"
+                robot="true"
+                replacement="libs.gms.play.services.wearable"
+                priority="0">
+                <range
+                    file="${:wear*projectDir}/build.gradle.kts"
+                    startOffset="1224"
+                    endOffset="1278"/>
+            </fix-replace>
+        </fix-composite>
+        <location
+            file="${:wear*projectDir}/build.gradle.kts"
+            line="45"
+            column="20"
+            startOffset="1224"
+            endLine="45"
+            endColumn="74"
+            endOffset="1278"/>
+    </incident>
+
+    <incident
+        id="UseTomlInstead"
+        severity="warning"
+        message="Use version catalog instead (androidx.room:room-runtime is already available as `androidx-room-runtime`, but using version 2.6.1 instead)">
+        <fix-alternatives>
+            <fix-composite
+                description="Replace with new library catalog declaration for room-runtime-v243"
+                robot="true"
+                independent="true">
+                <fix-replace
+                    description="Replace with roomRuntimeVersion = &quot;2.4.3&quot;..."
+                    robot="true"
+                    independent="true"
+                    oldString="_lint_insert_begin_"
+                    replacement="roomRuntimeVersion = &quot;2.4.3&quot;&#xA;"
+                    priority="0">
+                    <range
+                        file="$HOME/Developer/Draven/gradle/libs.versions.toml"
+                        startOffset="267"
+                        endOffset="267"/>
+                </fix-replace>
+                <fix-replace
+                    description="Replace with room-runtime-v243 = { module = &quot;androidx.room:room-runtime&quot;, version.ref = &quot;roomRuntimeVersion&quot; }..."
+                    robot="true"
+                    independent="true"
+                    oldString="_lint_insert_begin_"
+                    replacement="room-runtime-v243 = { module = &quot;androidx.room:room-runtime&quot;, version.ref = &quot;roomRuntimeVersion&quot; }&#xA;"
+                    priority="0">
+                    <range
+                        file="$HOME/Developer/Draven/gradle/libs.versions.toml"
+                        startOffset="3298"
+                        endOffset="3298"/>
+                </fix-replace>
+                <fix-replace
+                    description="Replace with libs.room.runtime.v243"
+                    robot="true"
+                    independent="true"
+                    replacement="libs.room.runtime.v243"
+                    priority="0">
+                    <range
+                        file="${:wear*projectDir}/build.gradle.kts"
+                        startOffset="1321"
+                        endOffset="1355"/>
+                </fix-replace>
+            </fix-composite>
+            <fix-replace
+                description="Replace with existing version catalog reference `androidx-room-runtime` (version 2.6.1)"
+                replacement="libs.androidx.room.runtime"
+                priority="0">
+                <range
+                    file="${:wear*projectDir}/build.gradle.kts"
+                    startOffset="1321"
+                    endOffset="1355"/>
+            </fix-replace>
+        </fix-alternatives>
+        <location
+            file="${:wear*projectDir}/build.gradle.kts"
+            line="48"
+            column="20"
+            startOffset="1321"
+            endLine="48"
+            endColumn="54"
+            endOffset="1355"/>
+    </incident>
+
+    <incident
+        id="UseTomlInstead"
+        severity="warning"
+        message="Use version catalog instead (androidx.room:room-ktx is already available as `androidx-room-ktx`, but using version 2.6.1 instead)">
+        <fix-alternatives>
+            <fix-composite
+                description="Replace with new library catalog declaration for room-ktx-v243"
+                robot="true"
+                independent="true">
+                <fix-replace
+                    description="Replace with roomKtxVersion = &quot;2.4.3&quot;..."
+                    robot="true"
+                    independent="true"
+                    oldString="_lint_insert_begin_"
+                    replacement="roomKtxVersion = &quot;2.4.3&quot;&#xA;"
+                    priority="0">
+                    <range
+                        file="$HOME/Developer/Draven/gradle/libs.versions.toml"
+                        startOffset="267"
+                        endOffset="267"/>
+                </fix-replace>
+                <fix-replace
+                    description="Replace with room-ktx-v243 = { module = &quot;androidx.room:room-ktx&quot;, version.ref = &quot;roomKtxVersion&quot; }..."
+                    robot="true"
+                    independent="true"
+                    oldString="_lint_insert_begin_"
+                    replacement="room-ktx-v243 = { module = &quot;androidx.room:room-ktx&quot;, version.ref = &quot;roomKtxVersion&quot; }&#xA;"
+                    priority="0">
+                    <range
+                        file="$HOME/Developer/Draven/gradle/libs.versions.toml"
+                        startOffset="3298"
+                        endOffset="3298"/>
+                </fix-replace>
+                <fix-replace
+                    description="Replace with libs.room.ktx.v243"
+                    robot="true"
+                    independent="true"
+                    replacement="libs.room.ktx.v243"
+                    priority="0">
+                    <range
+                        file="${:wear*projectDir}/build.gradle.kts"
+                        startOffset="1376"
+                        endOffset="1406"/>
+                </fix-replace>
+            </fix-composite>
+            <fix-replace
+                description="Replace with existing version catalog reference `androidx-room-ktx` (version 2.6.1)"
+                replacement="libs.androidx.room.ktx"
+                priority="0">
+                <range
+                    file="${:wear*projectDir}/build.gradle.kts"
+                    startOffset="1376"
+                    endOffset="1406"/>
+            </fix-replace>
+        </fix-alternatives>
+        <location
+            file="${:wear*projectDir}/build.gradle.kts"
+            line="49"
+            column="20"
+            startOffset="1376"
+            endLine="49"
+            endColumn="50"
+            endOffset="1406"/>
+    </incident>
+
+    <incident
+        id="UseTomlInstead"
+        severity="warning"
+        message="Use version catalog instead (androidx.room:room-compiler is already available as `androidx-room-compiler`, but using version 2.6.1 instead)">
+        <fix-alternatives>
+            <fix-composite
+                description="Replace with new library catalog declaration for room-compiler-v243"
+                robot="true"
+                independent="true">
+                <fix-replace
+                    description="Replace with roomCompilerVersion = &quot;2.4.3&quot;..."
+                    robot="true"
+                    independent="true"
+                    oldString="_lint_insert_begin_"
+                    replacement="roomCompilerVersion = &quot;2.4.3&quot;&#xA;"
+                    priority="0">
+                    <range
+                        file="$HOME/Developer/Draven/gradle/libs.versions.toml"
+                        startOffset="267"
+                        endOffset="267"/>
+                </fix-replace>
+                <fix-replace
+                    description="Replace with room-compiler-v243 = { module = &quot;androidx.room:room-compiler&quot;, version.ref = &quot;roomCompilerVersion&quot; }..."
+                    robot="true"
+                    independent="true"
+                    oldString="_lint_insert_begin_"
+                    replacement="room-compiler-v243 = { module = &quot;androidx.room:room-compiler&quot;, version.ref = &quot;roomCompilerVersion&quot; }&#xA;"
+                    priority="0">
+                    <range
+                        file="$HOME/Developer/Draven/gradle/libs.versions.toml"
+                        startOffset="3298"
+                        endOffset="3298"/>
+                </fix-replace>
+                <fix-replace
+                    description="Replace with libs.room.compiler.v243"
+                    robot="true"
+                    independent="true"
+                    replacement="libs.room.compiler.v243"
+                    priority="0">
+                    <range
+                        file="${:wear*projectDir}/build.gradle.kts"
+                        startOffset="1417"
+                        endOffset="1452"/>
+                </fix-replace>
+            </fix-composite>
+            <fix-replace
+                description="Replace with existing version catalog reference `androidx-room-compiler` (version 2.6.1)"
+                replacement="libs.androidx.room.compiler"
+                priority="0">
+                <range
+                    file="${:wear*projectDir}/build.gradle.kts"
+                    startOffset="1417"
+                    endOffset="1452"/>
+            </fix-replace>
+        </fix-alternatives>
+        <location
+            file="${:wear*projectDir}/build.gradle.kts"
+            line="50"
+            column="10"
+            startOffset="1417"
+            endLine="50"
+            endColumn="45"
+            endOffset="1452"/>
+    </incident>
+
+    <incident
+        id="UseTomlInstead"
+        severity="warning"
+        message="Use version catalog instead (androidx.datastore:datastore-preferences is already available as `androidx-datastore-preferences`, but using version 1.1.1 instead)">
+        <fix-alternatives>
+            <fix-composite
+                description="Replace with new library catalog declaration for datastore-preferences-v100"
+                robot="true"
+                independent="true">
+                <fix-replace
+                    description="Replace with datastorePreferencesVersion = &quot;1.0.0&quot;..."
+                    robot="true"
+                    independent="true"
+                    oldString="_lint_insert_begin_"
+                    replacement="datastorePreferencesVersion = &quot;1.0.0&quot;&#xA;"
+                    priority="0">
+                    <range
+                        file="$HOME/Developer/Draven/gradle/libs.versions.toml"
+                        startOffset="26"
+                        endOffset="26"/>
+                </fix-replace>
+                <fix-replace
+                    description="Replace with datastore-preferences-v100 = { module = &quot;androidx.datastore:datastore-preferences&quot;, version.ref = &quot;datastorePreferencesVersion&quot; }..."
+                    robot="true"
+                    independent="true"
+                    oldString="_lint_insert_begin_"
+                    replacement="datastore-preferences-v100 = { module = &quot;androidx.datastore:datastore-preferences&quot;, version.ref = &quot;datastorePreferencesVersion&quot; }&#xA;"
+                    priority="0">
+                    <range
+                        file="$HOME/Developer/Draven/gradle/libs.versions.toml"
+                        startOffset="521"
+                        endOffset="521"/>
+                </fix-replace>
+                <fix-replace
+                    description="Replace with libs.datastore.preferences.v100"
+                    robot="true"
+                    independent="true"
+                    replacement="libs.datastore.preferences.v100"
+                    priority="0">
+                    <range
+                        file="${:wear*projectDir}/build.gradle.kts"
+                        startOffset="1491"
+                        endOffset="1539"/>
+                </fix-replace>
+            </fix-composite>
+            <fix-replace
+                description="Replace with existing version catalog reference `androidx-datastore-preferences` (version 1.1.1)"
+                replacement="libs.androidx.datastore.preferences"
+                priority="0">
+                <range
+                    file="${:wear*projectDir}/build.gradle.kts"
+                    startOffset="1491"
+                    endOffset="1539"/>
+            </fix-replace>
+        </fix-alternatives>
+        <location
+            file="${:wear*projectDir}/build.gradle.kts"
+            line="53"
+            column="20"
+            startOffset="1491"
+            endLine="53"
+            endColumn="68"
+            endOffset="1539"/>
+    </incident>
+
+    <incident
+        id="UseTomlInstead"
+        severity="warning"
+        message="Use the existing version catalog reference (`libs.retrofit.core`) instead">
+        <fix-replace
+            description="Replace with existing version catalog reference `retrofit-core`"
+            robot="true"
+            independent="true"
+            replacement="libs.retrofit.core"
+            priority="0">
+            <range
+                file="${:wear*projectDir}/build.gradle.kts"
+                startOffset="1579"
+                endOffset="1618"/>
+        </fix-replace>
+        <location
+            file="${:wear*projectDir}/build.gradle.kts"
+            line="56"
+            column="20"
+            startOffset="1579"
+            endLine="56"
+            endColumn="59"
+            endOffset="1618"/>
+    </incident>
+
+    <incident
+        id="UseTomlInstead"
+        severity="warning"
+        message="Use the existing version catalog reference (`libs.retrofit.converter.gson`) instead">
+        <fix-replace
+            description="Replace with existing version catalog reference `retrofit-converter-gson`"
+            robot="true"
+            independent="true"
+            replacement="libs.retrofit.converter.gson"
+            priority="0">
+            <range
+                file="${:wear*projectDir}/build.gradle.kts"
+                startOffset="1639"
+                endOffset="1684"/>
+        </fix-replace>
+        <location
+            file="${:wear*projectDir}/build.gradle.kts"
+            line="57"
+            column="20"
+            startOffset="1639"
+            endLine="57"
+            endColumn="65"
+            endOffset="1684"/>
+    </incident>
+
+    <incident
+        id="UseTomlInstead"
+        severity="warning"
+        message="Use version catalog instead (com.squareup.okhttp3:okhttp is already available as `okhttp`, but using version 4.12.0 instead)">
+        <fix-alternatives>
+            <fix-composite
+                description="Replace with new library catalog declaration for okhttp3-okhttp-v493"
+                robot="true"
+                independent="true">
+                <fix-replace
+                    description="Replace with squareupOkhttp = &quot;4.9.3&quot;..."
+                    robot="true"
+                    independent="true"
+                    oldString="_lint_insert_begin_"
+                    replacement="squareupOkhttp = &quot;4.9.3&quot;&#xA;"
+                    priority="0">
+                    <range
+                        file="$HOME/Developer/Draven/gradle/libs.versions.toml"
+                        startOffset="267"
+                        endOffset="267"/>
+                </fix-replace>
+                <fix-replace
+                    description="Replace with okhttp3-okhttp-v493 = { module = &quot;com.squareup.okhttp3:okhttp&quot;, version.ref = &quot;squareupOkhttp&quot; }..."
+                    robot="true"
+                    independent="true"
+                    oldString="_lint_insert_begin_"
+                    replacement="okhttp3-okhttp-v493 = { module = &quot;com.squareup.okhttp3:okhttp&quot;, version.ref = &quot;squareupOkhttp&quot; }&#xA;"
+                    priority="0">
+                    <range
+                        file="$HOME/Developer/Draven/gradle/libs.versions.toml"
+                        startOffset="2083"
+                        endOffset="2083"/>
+                </fix-replace>
+                <fix-replace
+                    description="Replace with libs.okhttp3.okhttp.v493"
+                    robot="true"
+                    independent="true"
+                    replacement="libs.okhttp3.okhttp.v493"
+                    priority="0">
+                    <range
+                        file="${:wear*projectDir}/build.gradle.kts"
+                        startOffset="1705"
+                        endOffset="1740"/>
+                </fix-replace>
+            </fix-composite>
+            <fix-replace
+                description="Replace with existing version catalog reference `okhttp` (version 4.12.0)"
+                replacement="libs.okhttp"
+                priority="0">
+                <range
+                    file="${:wear*projectDir}/build.gradle.kts"
+                    startOffset="1705"
+                    endOffset="1740"/>
+            </fix-replace>
+        </fix-alternatives>
+        <location
+            file="${:wear*projectDir}/build.gradle.kts"
+            line="58"
+            column="20"
+            startOffset="1705"
+            endLine="58"
+            endColumn="55"
+            endOffset="1740"/>
+    </incident>
+
+    <incident
+        id="UseTomlInstead"
+        severity="warning"
+        message="Use version catalog instead">
+        <fix-composite
+            description="Replace with new library catalog declaration for lifecycle-viewmodel-ktx"
+            robot="true">
+            <fix-replace
+                description="Replace with lifecycleViewmodelKtxVersion = &quot;2.4.1&quot;..."
+                robot="true"
+                oldString="_lint_insert_begin_"
+                replacement="lifecycleViewmodelKtxVersion = &quot;2.4.1&quot;&#xA;"
+                priority="0">
+                <range
+                    file="$HOME/Developer/Draven/gradle/libs.versions.toml"
+                    startOffset="209"
+                    endOffset="209"/>
+            </fix-replace>
+            <fix-replace
+                description="Replace with lifecycle-viewmodel-ktx = { module = &quot;androidx.lifecycle:lifecycle-viewmodel-ktx&quot;, version.ref = &quot;lifecycleViewmodelKtxVersion&quot; }..."
+                robot="true"
+                oldString="_lint_insert_begin_"
+                replacement="lifecycle-viewmodel-ktx = { module = &quot;androidx.lifecycle:lifecycle-viewmodel-ktx&quot;, version.ref = &quot;lifecycleViewmodelKtxVersion&quot; }&#xA;"
+                priority="0">
+                <range
+                    file="$HOME/Developer/Draven/gradle/libs.versions.toml"
+                    startOffset="2083"
+                    endOffset="2083"/>
+            </fix-replace>
+            <fix-replace
+                description="Replace with libs.lifecycle.viewmodel.ktx"
+                robot="true"
+                replacement="libs.lifecycle.viewmodel.ktx"
+                priority="0">
+                <range
+                    file="${:wear*projectDir}/build.gradle.kts"
+                    startOffset="1793"
+                    endOffset="1843"/>
+            </fix-replace>
+        </fix-composite>
+        <location
+            file="${:wear*projectDir}/build.gradle.kts"
+            line="61"
+            column="20"
+            startOffset="1793"
+            endLine="61"
+            endColumn="70"
+            endOffset="1843"/>
+    </incident>
+
+    <incident
+        id="UseTomlInstead"
+        severity="warning"
+        message="Use version catalog instead (androidx.lifecycle:lifecycle-runtime-ktx is already available as `androidx-lifecycle-runtime-ktx`, but using version 2.9.1 instead)">
+        <fix-alternatives>
+            <fix-composite
+                description="Replace with new library catalog declaration for lifecycle-runtime-ktx-v241"
+                robot="true"
+                independent="true">
+                <fix-replace
+                    description="Replace with androidxLifecycleRuntimeKtx = &quot;2.4.1&quot;..."
+                    robot="true"
+                    independent="true"
+                    oldString="_lint_insert_begin_"
+                    replacement="androidxLifecycleRuntimeKtx = &quot;2.4.1&quot;&#xA;"
+                    priority="0">
+                    <range
+                        file="$HOME/Developer/Draven/gradle/libs.versions.toml"
+                        startOffset="26"
+                        endOffset="26"/>
+                </fix-replace>
+                <fix-replace
+                    description="Replace with lifecycle-runtime-ktx-v241 = { module = &quot;androidx.lifecycle:lifecycle-runtime-ktx&quot;, version.ref = &quot;androidxLifecycleRuntimeKtx&quot; }..."
+                    robot="true"
+                    independent="true"
+                    oldString="_lint_insert_begin_"
+                    replacement="lifecycle-runtime-ktx-v241 = { module = &quot;androidx.lifecycle:lifecycle-runtime-ktx&quot;, version.ref = &quot;androidxLifecycleRuntimeKtx&quot; }&#xA;"
+                    priority="0">
+                    <range
+                        file="$HOME/Developer/Draven/gradle/libs.versions.toml"
+                        startOffset="2083"
+                        endOffset="2083"/>
+                </fix-replace>
+                <fix-replace
+                    description="Replace with libs.lifecycle.runtime.ktx.v241"
+                    robot="true"
+                    independent="true"
+                    replacement="libs.lifecycle.runtime.ktx.v241"
+                    priority="0">
+                    <range
+                        file="${:wear*projectDir}/build.gradle.kts"
+                        startOffset="1864"
+                        endOffset="1912"/>
+                </fix-replace>
+            </fix-composite>
+            <fix-replace
+                description="Replace with existing version catalog reference `androidx-lifecycle-runtime-ktx` (version 2.9.1)"
+                replacement="libs.androidx.lifecycle.runtime.ktx"
+                priority="0">
+                <range
+                    file="${:wear*projectDir}/build.gradle.kts"
+                    startOffset="1864"
+                    endOffset="1912"/>
+            </fix-replace>
+        </fix-alternatives>
+        <location
+            file="${:wear*projectDir}/build.gradle.kts"
+            line="62"
+            column="20"
+            startOffset="1864"
+            endLine="62"
+            endColumn="68"
+            endOffset="1912"/>
+    </incident>
+
+    <incident
+        id="UseTomlInstead"
+        severity="warning"
+        message="Use version catalog instead">
+        <fix-composite
+            description="Replace with new library catalog declaration for activity-ktx"
+            robot="true">
+            <fix-replace
+                description="Replace with activityKtxVersion = &quot;1.4.0&quot;..."
+                robot="true"
+                oldString="_lint_insert_begin_"
+                replacement="activityKtxVersion = &quot;1.4.0&quot;&#xA;"
+                priority="0">
+                <range
+                    file="$HOME/Developer/Draven/gradle/libs.versions.toml"
+                    startOffset="11"
+                    endOffset="11"/>
+            </fix-replace>
+            <fix-replace
+                description="Replace with activity-ktx = { module = &quot;androidx.activity:activity-ktx&quot;, version.ref = &quot;activityKtxVersion&quot; }..."
+                robot="true"
+                oldString="_lint_insert_begin_"
+                replacement="activity-ktx = { module = &quot;androidx.activity:activity-ktx&quot;, version.ref = &quot;activityKtxVersion&quot; }&#xA;"
+                priority="0">
+                <range
+                    file="$HOME/Developer/Draven/gradle/libs.versions.toml"
+                    startOffset="429"
+                    endOffset="429"/>
+            </fix-replace>
+            <fix-replace
+                description="Replace with libs.activity.ktx"
+                robot="true"
+                replacement="libs.activity.ktx"
+                priority="0">
+                <range
+                    file="${:wear*projectDir}/build.gradle.kts"
+                    startOffset="1960"
+                    endOffset="1998"/>
+            </fix-replace>
+        </fix-composite>
+        <location
+            file="${:wear*projectDir}/build.gradle.kts"
+            line="65"
+            column="20"
+            startOffset="1960"
+            endLine="65"
+            endColumn="58"
+            endOffset="1998"/>
+    </incident>
+
+    <incident
+        id="HardcodedText"
+        severity="warning"
+        message="Hardcoded string &quot;🎤 Voice Input&quot;, should use `@string` resource">
+        <location
+            file="${:wear*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_main.xml"
+            line="20"
+            column="9"
+            startOffset="678"
+            endLine="20"
+            endColumn="38"
+            endOffset="707"/>
+    </incident>
+
+</incidents>

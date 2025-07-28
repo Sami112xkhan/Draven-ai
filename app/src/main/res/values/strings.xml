@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Draven</string>
+    <string name="chat_placeholder">Message Draven...</string>
+    <string name="send_button">Send</string>
+    <string name="settings_title">Developer Settings</string>
+    <string name="developer_access">Developer Access</string>
+    <string name="password_hint">Enter the developer password to access API settings</string>
+    <string name="password_label">Password</string>
+    <string name="authenticate_button">Authenticate</string>
+    <string name="api_configuration">API Configuration</string>
+    <string name="api_key_hint">Enter your NVIDIA API key for LLaMA 3.1 NeMoTron Ultra 256B</string>
+    <string name="api_key_label">API Key</string>
+    <string name="save_api_key">Save API Key</string>
+    <string name="logout">Logout</string>
+    <string name="api_key_saved">API Key saved successfully!</string>
+    <string name="api_key_error">Please enter a valid API key</string>
+    <string name="hide_password">Hide password</string>
+    <string name="show_password">Show password</string>
+    <string name="hide_api_key">Hide API key</string>
+    <string name="show_api_key">Show API key</string>
+    <string name="back">Back</string>
+    <string name="settings">Settings</string>
+</resources>

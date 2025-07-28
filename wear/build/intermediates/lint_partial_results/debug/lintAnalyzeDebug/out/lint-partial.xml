@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<incidents format="6" by="lint 8.11.1" type="partial_results">
+    <map id="UnsafeIntentLaunch">
+            <map id="unprotected">
+                <entry
+                    name="com.samikhan.draven.MainActivity"
+                    boolean="true"/>
+            </map>
+    </map>
+    <map id="UnusedResources">
+        <entry
+            name="model"
+            string="drawable[ai_message_bg(U),message_bg(U),user_message_bg(U),voice_button_bg(U)],id[recyclerView(U),voiceButton(U),messageText(U)],layout[activity_main(U),message_item(U)],mipmap[ic_launcher(U),ic_launcher_round(U)],string[app_name(U)],style[Theme_AppCompat_Light_NoActionBar(R)];7^3,8^1;;;"/>
+    </map>
+
+</incidents>

@@ -1,0 +1,99 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.samikhan.draven"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="25"
+9        android:targetSdkVersion="28" />
+10
+11    <uses-feature android:name="android.hardware.type.watch" />
+11-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:4:5-64
+11-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:4:19-61
+12
+13    <uses-permission android:name="android.permission.WAKE_LOCK" />
+13-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:5:5-68
+13-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:5:22-65
+14    <uses-permission android:name="android.permission.INTERNET" />
+14-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:6:5-67
+14-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:6:22-64
+15    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+15-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:7:5-71
+15-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:7:22-68
+16
+17    <application
+17-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:9:5-40:19
+18        android:name="com.samikhan.draven.DravenApplication"
+18-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:10:9-42
+19        android:allowBackup="true"
+19-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:11:9-35
+20        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+20-->[androidx.core:core:1.7.0] /Users/samikhan/.gradle/caches/8.13/transforms/d7991905be3ee0f17deba9a7069ca69a/transformed/core-1.7.0/AndroidManifest.xml:24:18-86
+21        android:debuggable="true"
+22        android:extractNativeLibs="false"
+23        android:hardwareAccelerated="true"
+23-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:17:9-43
+24        android:icon="@mipmap/ic_launcher"
+24-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:12:9-43
+25        android:label="@string/app_name"
+25-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:13:9-41
+26        android:roundIcon="@mipmap/ic_launcher_round"
+26-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:14:9-54
+27        android:supportsRtl="true"
+27-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:15:9-35
+28        android:theme="@style/AppTheme" >
+28-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:16:9-40
+29        <uses-library
+29-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:19:9-21:39
+30            android:name="com.google.android.wearable"
+30-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:20:13-55
+31            android:required="true" />
+31-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:21:13-36
+32
+33        <meta-data
+33-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:23:9-25:36
+34            android:name="com.google.android.wearable.standalone"
+34-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:24:13-66
+35            android:value="true" />
+35-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:25:13-33
+36
+37        <activity
+37-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:27:9-39:20
+38            android:name="com.samikhan.draven.MainActivity"
+38-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:28:13-41
+39            android:exported="true"
+39-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:29:13-36
+40            android:hardwareAccelerated="true"
+40-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:33:13-47
+41            android:launchMode="singleTask"
+41-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:32:13-44
+42            android:screenOrientation="portrait"
+42-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:34:13-49
+43            android:taskAffinity=""
+43-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:31:13-36
+44            android:theme="@style/AppTheme" >
+44-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:30:13-44
+45            <intent-filter>
+45-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:35:13-38:29
+46                <action android:name="android.intent.action.MAIN" />
+46-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:36:17-69
+46-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:36:25-66
+47
+48                <category android:name="android.intent.category.LAUNCHER" />
+48-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:37:17-77
+48-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:37:27-74
+49            </intent-filter>
+50        </activity>
+51
+52        <service
+52-->[androidx.room:room-runtime:2.4.3] /Users/samikhan/.gradle/caches/8.13/transforms/7a13c55ab4d3c73a3d73694fda73503c/transformed/room-runtime-2.4.3/AndroidManifest.xml:25:9-28:40
+53            android:name="androidx.room.MultiInstanceInvalidationService"
+53-->[androidx.room:room-runtime:2.4.3] /Users/samikhan/.gradle/caches/8.13/transforms/7a13c55ab4d3c73a3d73694fda73503c/transformed/room-runtime-2.4.3/AndroidManifest.xml:26:13-74
+54            android:directBootAware="true"
+54-->[androidx.room:room-runtime:2.4.3] /Users/samikhan/.gradle/caches/8.13/transforms/7a13c55ab4d3c73a3d73694fda73503c/transformed/room-runtime-2.4.3/AndroidManifest.xml:27:13-43
+55            android:exported="false" />
+55-->[androidx.room:room-runtime:2.4.3] /Users/samikhan/.gradle/caches/8.13/transforms/7a13c55ab4d3c73a3d73694fda73503c/transformed/room-runtime-2.4.3/AndroidManifest.xml:28:13-37
+56    </application>
+57
+58</manifest>
