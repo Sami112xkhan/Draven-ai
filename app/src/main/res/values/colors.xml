@@ -29,4 +29,7 @@
     <color name="success_green">#FF10B981</color>
     <color name="error_red">#FFEF4444</color>
     <color name="warning_yellow">#FFF59E0B</color>
+    
+    <!-- App Icon Colors -->
+    <color name="ic_launcher_background">#FF6366F1</color>
 </resources>

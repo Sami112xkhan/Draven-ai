@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit
 object ApiClient {
     private const val BASE_URL = "https://integrate.api.nvidia.com/v1/chat/completions"
     private const val API_KEY_PREF = "api_key"
-    private const val DEFAULT_API_KEY = "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"
+    private const val DEFAULT_API_KEY = "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"
 
     fun getApiKey(context: Context): String {
         val prefs = context.getSharedPreferences("draven_prefs", Context.MODE_PRIVATE)

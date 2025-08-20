@@ -138,11 +138,13 @@ fun SettingsScreen(
                         ) + fadeIn(animationSpec = tween(300))
                     ) {
                         ApiKeySection(
-                            apiKey = uiState.apiKey,
-                            onApiKeyChange = viewModel::updateApiKey,
+                            nemotronApiKey = uiState.nemotronApiKey,
+                            gptOssApiKey = uiState.gptOssApiKey,
+                            onNemotronApiKeyChange = viewModel::updateNemotronApiKey,
+                            onGptOssApiKeyChange = viewModel::updateGptOssApiKey,
                             showApiKey = showApiKey,
                             onShowApiKeyChange = { showApiKey = it },
-                            onSave = viewModel::saveApiKey,
+                            onSave = viewModel::saveApiKeys,
                             isSaved = uiState.isSaved,
                             hasError = uiState.saveError,
                             onLogout = viewModel::resetAuthentication,
@@ -194,7 +196,7 @@ fun SettingsScreen(
                             )
                             Spacer(modifier = Modifier.width(8.dp))
                             Text(
-                                text = "API Key saved successfully!",
+                                text = "API Keys saved successfully!",
                                 color = SuccessGreen,
                                 fontWeight = FontWeight.Medium
                             )
@@ -231,7 +233,7 @@ fun SettingsScreen(
                             )
                             Spacer(modifier = Modifier.width(8.dp))
                             Text(
-                                text = "Please enter a valid API key",
+                                text = "Please enter valid API keys for both models",
                                 color = ErrorRed,
                                 fontWeight = FontWeight.Medium
                             )
@@ -329,8 +331,10 @@ fun PasswordAuthSection(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ApiKeySection(
-    apiKey: String,
-    onApiKeyChange: (String) -> Unit,
+    nemotronApiKey: String,
+    gptOssApiKey: String,
+    onNemotronApiKeyChange: (String) -> Unit,
+    onGptOssApiKeyChange: (String) -> Unit,
     showApiKey: Boolean,
     onShowApiKeyChange: (Boolean) -> Unit,
     onSave: () -> Unit,
@@ -357,14 +361,57 @@ fun ApiKeySection(
             )
             
             Text(
-                text = "Enter your NVIDIA API key for LLaMA 3.1 NeMoTron Ultra 256B",
+                text = "Enter your NVIDIA API keys for both models",
                 color = DarkOnSurface.copy(alpha = 0.7f)
             )
 
+            // NeMoTron API Key
+            Text(
+                text = "NeMoTron Ultra API Key",
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Medium,
+                color = Color.White,
+                modifier = Modifier.padding(top = 8.dp)
+            )
+            
             OutlinedTextField(
-                value = apiKey,
-                onValueChange = onApiKeyChange,
-                label = { Text("API Key") },
+                value = nemotronApiKey,
+                onValueChange = onNemotronApiKeyChange,
+                label = { Text("NeMoTron API Key") },
+                visualTransformation = if (showApiKey) VisualTransformation.None else PasswordVisualTransformation(),
+                trailingIcon = {
+                    IconButton(onClick = { onShowApiKeyChange(!showApiKey) }) {
+                        Icon(
+                            imageVector = if (showApiKey) Icons.Default.VisibilityOff else Icons.Default.Visibility,
+                            contentDescription = if (showApiKey) "Hide API key" else "Show API key"
+                        )
+                    }
+                },
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedBorderColor = DravenPrimary,
+                    unfocusedBorderColor = getGlassBorder(isDarkMode = isDarkMode),
+                    focusedLabelColor = DravenPrimary,
+                    unfocusedLabelColor = DarkOnSurface.copy(alpha = 0.7f),
+                    cursorColor = DravenPrimary,
+                    focusedTextColor = DarkOnSurface,
+                    unfocusedTextColor = DarkOnSurface
+                ),
+                modifier = Modifier.fillMaxWidth()
+            )
+            
+            // GPT-OSS API Key
+            Text(
+                text = "GPT-OSS API Key",
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Medium,
+                color = Color.White,
+                modifier = Modifier.padding(top = 8.dp)
+            )
+            
+            OutlinedTextField(
+                value = gptOssApiKey,
+                onValueChange = onGptOssApiKeyChange,
+                label = { Text("GPT-OSS API Key") },
                 visualTransformation = if (showApiKey) VisualTransformation.None else PasswordVisualTransformation(),
                 trailingIcon = {
                     IconButton(onClick = { onShowApiKeyChange(!showApiKey) }) {
@@ -392,7 +439,7 @@ fun ApiKeySection(
             ) {
                 Button(
                     onClick = onSave,
-                    enabled = apiKey.isNotBlank(),
+                    enabled = nemotronApiKey.isNotBlank() && gptOssApiKey.isNotBlank(),
                     modifier = Modifier.weight(1f),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = SuccessGreen

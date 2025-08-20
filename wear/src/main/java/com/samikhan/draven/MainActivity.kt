@@ -40,6 +40,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var chatHistory: ChatHistory
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navigationView: NavigationView
+    private lateinit var animationToggleButton: ImageButton
+    private var isAnimationEnabled = true
     private var lastClickTime = 0L // For click debouncing
     private val CLICK_DEBOUNCE_TIME = 500L // 500ms debounce
 
@@ -75,6 +77,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         chatInput = findViewById(R.id.chatInput)
         voiceModeButton = findViewById(R.id.voiceModeButton)
         voiceInputButton = findViewById(R.id.voiceInputButton)
+        animationToggleButton = findViewById(R.id.animationToggleButton)
+        
+        // Setup animation toggle
+        animationToggleButton.setOnClickListener {
+            isAnimationEnabled = !isAnimationEnabled
+            updateAnimationToggleIcon()
+            Toast.makeText(this, 
+                if (isAnimationEnabled) "Animations enabled" else "Animations disabled", 
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 
     private fun setupDrawerLayout() {
@@ -365,13 +378,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private fun showLoading(show: Boolean) {
         progressBar.visibility = if (show) ProgressBar.VISIBLE else ProgressBar.GONE
         
-        if (show) {
-            // Add typing animation for loading
+        if (show && isAnimationEnabled) {
+            // Add typing animation for loading only if animations are enabled
             val typingAnim = AnimationUtils.loadAnimation(this, R.anim.typing_dots)
             progressBar.startAnimation(typingAnim)
         } else {
             progressBar.clearAnimation()
         }
+    }
+    
+    private fun updateAnimationToggleIcon() {
+        val iconRes = if (isAnimationEnabled) R.drawable.ic_speed else R.drawable.ic_tune
+        animationToggleButton.setImageResource(iconRes)
     }
 
     private fun checkMicrophonePermission(): Boolean {
