@@ -4,7 +4,9 @@ import androidx.compose.animation.*
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -50,6 +52,8 @@ import com.samikhan.draven.ui.components.EnhancedMessageBubble
 import com.samikhan.draven.ui.components.*
 import com.samikhan.draven.ui.theme.*
 import com.samikhan.draven.ui.viewmodel.ChatViewModel
+import com.samikhan.draven.data.model.AIModelManager
+
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.MutableStateFlow
 
@@ -57,6 +61,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 @Composable
 fun ChatScreen(
     onNavigateToHistory: () -> Unit,
+    onNavigateToAnalytics: () -> Unit,
     onNavigateToSettings: () -> Unit,
     themePreferences: ThemePreferences,
     viewModel: ChatViewModel = viewModel(factory = ChatViewModel.Factory(LocalContext.current))
@@ -95,6 +100,26 @@ fun ChatScreen(
     
     // Theme state
     val isDarkMode by themePreferences.isDarkMode.collectAsState(initial = true)
+    
+    // Animation state
+    var isAnimationEnabled by remember { mutableStateOf(true) }
+    
+    // Sync animation state with preferences
+    LaunchedEffect(Unit) {
+        themePreferences.isAnimationEnabled.collect { prefValue ->
+            isAnimationEnabled = prefValue
+        }
+    }
+    
+    // Voice mode state
+    val isVoiceModeEnabled by viewModel.isVoiceModeEnabled.collectAsState()
+    
+    // Model selector state
+    var isModelSelectorExpanded by remember { mutableStateOf(false) }
+    val availableModels = remember { AIModelManager.getAllModels() }
+    
+    // Overflow menu state
+    var showOverflowMenu by remember { mutableStateOf(false) }
 
     // Enhanced scrolling behavior for animated messages
     LaunchedEffect(uiState.messages.size) {
@@ -119,15 +144,15 @@ fun ChatScreen(
                 Brush.verticalGradient(
                     colors = if (isDarkMode) {
                         listOf(
-                            Color(0xFF0A0A0F),
-                            Color(0xFF1A1A2E),
-                            Color(0xFF0F0F23)
+                            MaterialTheme.colorScheme.background,
+                            MaterialTheme.colorScheme.surface,
+                            MaterialTheme.colorScheme.surfaceVariant
                         )
                     } else {
                         listOf(
-                            Color(0xFFFAFAFA),
-                            Color(0xFFF5F5F5),
-                            Color(0xFFEEEEEE)
+                            MaterialTheme.colorScheme.background,
+                            MaterialTheme.colorScheme.surface,
+                            MaterialTheme.colorScheme.surfaceVariant
                         )
                     }
                 )
@@ -136,98 +161,76 @@ fun ChatScreen(
         Column(
             modifier = Modifier.fillMaxSize()
         ) {
-            // Enhanced Top Bar with Clean Glass Effect
+            // Enhanced Top App Bar with Overflow Menu
             Surface(
                 modifier = Modifier
                     .fillMaxWidth()
                     .shadow(
-                        elevation = 12.dp,
-                        shape = RoundedCornerShape(bottomStart = 28.dp, bottomEnd = 28.dp),
-                        ambientColor = getGlassGlow(isDarkMode),
-                        spotColor = getGlassGlow(isDarkMode)
+                        elevation = 8.dp,
+                        shape = RoundedCornerShape(bottomStart = 24.dp, bottomEnd = 24.dp),
+                        ambientColor = MaterialTheme.colorScheme.surfaceTint,
+                        spotColor = MaterialTheme.colorScheme.surfaceTint
                     ),
-                color = if (isDarkMode) DarkSurface.copy(alpha = 0.95f) else LightSurface.copy(alpha = 0.95f),
-                shape = RoundedCornerShape(bottomStart = 28.dp, bottomEnd = 28.dp),
-                border = BorderStroke(1.dp, getGlassBorder(isDarkMode).copy(alpha = 0.3f))
+                color = MaterialTheme.colorScheme.surface.copy(alpha = 0.95f),
+                shape = RoundedCornerShape(bottomStart = 24.dp, bottomEnd = 24.dp),
+                border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.3f))
             ) {
                 TopAppBar(
                     title = {
                         Text(
                             text = "Draven",
-                            fontSize = 32.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = Color.White
+                            style = MaterialTheme.typography.headlineMedium,
+                            color = MaterialTheme.colorScheme.onSurface
                         )
                     },
-                    actions = {
-                        // Voice Mode Toggle
-                        val isVoiceModeEnabled by viewModel.isVoiceModeEnabled.collectAsState()
-                        var isVoicePressed by remember { mutableStateOf(false) }
-                        val voiceScale by animateFloatAsState(
-                            targetValue = if (isVoicePressed) 0.9f else 1f,
-                            animationSpec = spring(
-                                dampingRatio = Spring.DampingRatioMediumBouncy,
-                                stiffness = Spring.StiffnessLow
-                            ),
-                            label = "voice_scale"
-                        )
-                        
-                        IconButton(
-                            onClick = { 
-                                if (!hasPermission) {
-                                    requestMicrophonePermission()
-                                } else {
-                                    viewModel.toggleVoiceMode()
-                                }
-                            },
-                            modifier = Modifier
-                                .graphicsLayer(
-                                    scaleX = voiceScale,
-                                    scaleY = voiceScale
-                                )
-                                .pointerInput(Unit) {
-                                    detectTapGestures(
-                                        onPress = {
-                                            isVoicePressed = true
-                                            tryAwaitRelease()
-                                            isVoicePressed = false
-                                        }
-                                    )
-                                }
-                        ) {
-                            Icon(
-                                imageVector = if (uiState.isVoiceModeEnabled) Icons.Default.Mic else Icons.Default.MicOff,
-                                contentDescription = if (uiState.isVoiceModeEnabled) "Voice Mode On" else "Voice Mode Off",
-                                tint = if (uiState.isVoiceModeEnabled) DravenNeon else Color.White.copy(alpha = 0.6f),
-                                modifier = Modifier.size(24.dp)
-                            )
-                        }
-                        
-                        // Enhanced Detailed Thinking Toggle
+                    navigationIcon = {
                         Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            modifier = Modifier.padding(end = 12.dp)
+                            horizontalArrangement = Arrangement.spacedBy(16.dp),
+                            verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Icon(
-                                imageVector = Icons.Default.Psychology,
-                                contentDescription = "Detailed Thinking",
-                                tint = if (uiState.detailedThinking) DravenNeon else Color.White.copy(alpha = 0.6f),
-                                modifier = Modifier.size(24.dp)
+                            // Voice Mode Toggle
+                            var isVoicePressed by remember { mutableStateOf(false) }
+                            val voiceScale by animateFloatAsState(
+                                targetValue = if (isVoicePressed) 0.9f else 1f,
+                                animationSpec = spring(
+                                    dampingRatio = Spring.DampingRatioMediumBouncy,
+                                    stiffness = Spring.StiffnessLow
+                                ),
+                                label = "voice_scale"
                             )
-                            Spacer(modifier = Modifier.width(8.dp))
-                            Switch(
-                                checked = uiState.detailedThinking,
-                                onCheckedChange = { viewModel.toggleDetailedThinking() },
-                                colors = SwitchDefaults.colors(
-                                    checkedThumbColor = DravenNeon,
-                                    checkedTrackColor = DravenNeon.copy(alpha = 0.3f),
-                                    uncheckedThumbColor = Color.White.copy(alpha = 0.6f),
-                                    uncheckedTrackColor = Color.White.copy(alpha = 0.2f)
+                            
+                            IconButton(
+                                onClick = { 
+                                    if (!hasPermission) {
+                                        requestMicrophonePermission()
+                                    } else {
+                                        viewModel.toggleVoiceMode()
+                                    }
+                                },
+                                modifier = Modifier
+                                    .graphicsLayer(
+                                        scaleX = voiceScale,
+                                        scaleY = voiceScale
+                                    )
+                                    .pointerInput(Unit) {
+                                        detectTapGestures(
+                                            onPress = {
+                                                isVoicePressed = true
+                                                tryAwaitRelease()
+                                                isVoicePressed = false
+                                            }
+                                        )
+                                    }
+                            ) {
+                                Icon(
+                                    imageVector = if (isVoiceModeEnabled) Icons.Default.Mic else Icons.Default.MicOff,
+                                    contentDescription = if (isVoiceModeEnabled) "Voice Mode On" else "Voice Mode Off",
+                                    tint = if (isVoiceModeEnabled) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
+                                    modifier = Modifier.size(24.dp)
                                 )
-                            )
-                        }
-                        
-                        // Theme Toggle Button
+                            }
+                            
+                            // Light/Dark Mode Toggle
                         var isThemePressed by remember { mutableStateOf(false) }
                         val themeScale by animateFloatAsState(
                             targetValue = if (isThemePressed) 0.9f else 1f,
@@ -262,246 +265,173 @@ fun ChatScreen(
                             Icon(
                                 imageVector = if (isDarkMode) Icons.Default.LightMode else Icons.Default.DarkMode,
                                 contentDescription = if (isDarkMode) "Switch to Light Mode" else "Switch to Dark Mode",
-                                tint = Color.White,
+                                tint = MaterialTheme.colorScheme.onSurface,
                                 modifier = Modifier.size(24.dp)
                             )
                         }
-                        
-                        // Enhanced Action Buttons with animations
-                        var isHistoryPressed by remember { mutableStateOf(false) }
-                        var isSettingsPressed by remember { mutableStateOf(false) }
-                        
-                        val historyScale by animateFloatAsState(
-                            targetValue = if (isHistoryPressed) 0.9f else 1f,
+                    }
+                },
+                actions = {
+                        // Overflow Menu
+                        var isOverflowPressed by remember { mutableStateOf(false) }
+                        val overflowScale by animateFloatAsState(
+                            targetValue = if (isOverflowPressed) 0.9f else 1f,
                             animationSpec = spring(
                                 dampingRatio = Spring.DampingRatioMediumBouncy,
                                 stiffness = Spring.StiffnessLow
                             ),
-                            label = "history_scale"
-                        )
-                        
-                        val settingsScale by animateFloatAsState(
-                            targetValue = if (isSettingsPressed) 0.9f else 1f,
-                            animationSpec = spring(
-                                dampingRatio = Spring.DampingRatioMediumBouncy,
-                                stiffness = Spring.StiffnessLow
-                            ),
-                            label = "settings_scale"
+                            label = "overflow_scale"
                         )
                         
                         IconButton(
-                            onClick = onNavigateToHistory,
+                            onClick = { showOverflowMenu = true },
                             modifier = Modifier
                                 .graphicsLayer(
-                                    scaleX = historyScale,
-                                    scaleY = historyScale
+                                    scaleX = overflowScale,
+                                    scaleY = overflowScale
                                 )
                                 .pointerInput(Unit) {
                                     detectTapGestures(
                                         onPress = {
-                                            isHistoryPressed = true
+                                            isOverflowPressed = true
                                             tryAwaitRelease()
-                                            isHistoryPressed = false
+                                            isOverflowPressed = false
                                         }
                                     )
                                 }
                         ) {
                             Icon(
-                                imageVector = Icons.Default.History,
-                                contentDescription = "History",
-                                tint = Color.White,
-                                modifier = Modifier.size(24.dp)
-                            )
-                        }
-                        
-                        IconButton(
-                            onClick = onNavigateToSettings,
-                            modifier = Modifier
-                                .graphicsLayer(
-                                    scaleX = settingsScale,
-                                    scaleY = settingsScale
-                                )
-                                .pointerInput(Unit) {
-                                    detectTapGestures(
-                                        onPress = {
-                                            isSettingsPressed = true
-                                            tryAwaitRelease()
-                                            isSettingsPressed = false
-                                        }
-                                    )
-                                }
-                        ) {
-                            Icon(
-                                imageVector = Icons.Default.Settings,
-                                contentDescription = "Settings",
-                                tint = Color.White,
+                                imageVector = Icons.Default.MoreVert,
+                                contentDescription = "More Options",
+                                tint = MaterialTheme.colorScheme.onSurface,
                                 modifier = Modifier.size(24.dp)
                             )
                         }
                     },
                     colors = TopAppBarDefaults.topAppBarColors(
-                        containerColor = Color.Transparent
+                        containerColor = Color.Transparent,
+                        titleContentColor = MaterialTheme.colorScheme.onSurface,
+                        navigationIconContentColor = MaterialTheme.colorScheme.onSurface,
+                        actionIconContentColor = MaterialTheme.colorScheme.onSurface
                     )
                 )
             }
 
-            // Messages List with enhanced animations
+        // Overflow Menu Dialog
+        if (showOverflowMenu) {
+            OverflowMenuDialog(
+                onDismiss = { showOverflowMenu = false },
+                onCriticalThinkingToggle = { 
+                    viewModel.toggleDetailedThinking()
+                },
+                onAnimationToggle = { 
+                    isAnimationEnabled = !isAnimationEnabled 
+                    scope.launch {
+                        themePreferences.setAnimationEnabled(isAnimationEnabled)
+                    }
+                },
+                onHistoryClick = { 
+                    showOverflowMenu = false
+                    onNavigateToHistory() 
+                },
+                onAnalyticsClick = { 
+                    showOverflowMenu = false
+                    onNavigateToAnalytics() 
+                },
+                onSettingsClick = { 
+                    showOverflowMenu = false
+                    onNavigateToSettings() 
+                },
+                isCriticalThinkingEnabled = uiState.detailedThinking,
+                isAnimationEnabled = isAnimationEnabled
+            )
+        }
+
+        // Model Selector Modal
+        if (isModelSelectorExpanded) {
+            ModelSelector(
+                models = availableModels,
+                onModelSelected = { model ->
+                    AIModelManager.setCurrentModel(model.id)
+                    isModelSelectorExpanded = false
+                },
+                onDismiss = { isModelSelectorExpanded = false },
+                isDarkMode = isDarkMode
+            )
+        }
+
+
+
+            // Chat Messages
             LazyColumn(
-                state = listState,
                 modifier = Modifier
                     .weight(1f)
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp),
+                state = listState,
                 verticalArrangement = Arrangement.spacedBy(12.dp),
                 contentPadding = PaddingValues(vertical = 16.dp)
             ) {
-                items(
-                    items = uiState.messages,
-                    key = { it.id }
-                ) { message ->
-                    AnimatedVisibility(
-                        visible = true,
-                        enter = slideInVertically(
-                            animationSpec = tween(400, easing = EaseOutCubic),
-                            initialOffsetY = { (it * 0.5).toInt() }
-                        ) + fadeIn(
-                            animationSpec = tween(400)
-                        ),
-                        exit = slideOutVertically(
-                            animationSpec = tween(300),
-                            targetOffsetY = { it }
-                        ) + fadeOut(animationSpec = tween(300))
-                    ) {
-                        EnhancedMessageBubble(
-                            message = message,
-                            onTextUpdate = {
-                                scope.launch {
-                                    listState.animateScrollToItem(uiState.messages.size - 1)
-                                }
-                            },
-                            borderColor = getGlassBorder(isDarkMode)
-                        )
-                    }
-                }
-            }
-            
-            // Voice Transcription Display
-            VoiceTranscriptionDisplay(
-                transcribedText = uiState.transcribedText,
-                isListening = uiState.isListening,
-                isDarkMode = isDarkMode,
-                modifier = Modifier.padding(horizontal = 16.dp)
-            )
-            
-            // Voice Controls
-            VoiceControls(
-                isSpeaking = uiState.isSpeaking,
-                onStopSpeaking = { viewModel.stopSpeaking() },
-                isDarkMode = isDarkMode,
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
-            )
-            
-            // Voice Error Display
-            VoiceErrorDisplay(
-                error = uiState.voiceError,
-                isDarkMode = isDarkMode,
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
-            )
-            
-            // Permission Request Notification
-            if (!hasPermission && uiState.isVoiceModeEnabled) {
-                AnimatedVisibility(
-                    visible = true,
-                    enter = slideInVertically(
-                        animationSpec = tween(300),
-                        initialOffsetY = { it }
-                    ) + fadeIn(animationSpec = tween(300))
-                ) {
-                    Surface(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 16.dp, vertical = 8.dp),
-                        color = Color(0xFFFF9800).copy(alpha = 0.1f),
-                        shape = RoundedCornerShape(12.dp),
-                        border = BorderStroke(1.dp, Color(0xFFFF9800).copy(alpha = 0.3f))
-                    ) {
-                        Row(
-                            modifier = Modifier.padding(12.dp),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.spacedBy(8.dp)
-                        ) {
-                            Icon(
-                                imageVector = Icons.Default.Mic,
-                                contentDescription = "Microphone",
-                                tint = Color(0xFFFF9800),
-                                modifier = Modifier.size(16.dp)
-                            )
-                            
-                            Text(
-                                text = "Microphone permission needed for voice features",
-                                style = MaterialTheme.typography.bodySmall,
-                                color = Color(0xFFFF9800)
-                            )
-                            
-                            TextButton(
-                                onClick = { requestMicrophonePermission() },
-                                colors = ButtonDefaults.textButtonColors(
-                                    contentColor = Color(0xFFFF9800)
-                                )
-                            ) {
-                                Text("Grant")
-                            }
-                        }
-                    }
+                items(uiState.messages) { message ->
+                    EnhancedMessageBubble(
+                        message = message,
+                        isAnimationEnabled = isAnimationEnabled
+                    )
                 }
             }
 
-            // Enhanced Input Section with Glassmorphism
-            EnhancedChatInput(
+            // Simple Bottom Chat Bar
+            SimpleChatInput(
                 value = uiState.inputText,
-                onValueChange = viewModel::updateInputText,
+                onValueChange = { viewModel.updateInputText(it) },
                 onSendClick = {
-                    viewModel.sendMessage(uiState.inputText)
-                    keyboardController?.hide()
-                },
-                isLoading = uiState.isLoading,
-                focusRequester = focusRequester,
-                isDarkMode = isDarkMode,
-                isVoiceModeEnabled = uiState.isVoiceModeEnabled && hasPermission,
-                isListening = uiState.isListening,
-                speechConfidence = uiState.speechConfidence,
-                onToggleVoiceListening = { 
-                    if (!hasPermission) {
-                        requestMicrophonePermission()
-                    } else {
-                        viewModel.toggleVoiceListening()
+                    if (uiState.inputText.isNotBlank()) {
+                        viewModel.sendMessage(uiState.inputText)
+                        keyboardController?.hide()
                     }
-                }
+                },
+                onVoiceClick = {
+                    if (isVoiceModeEnabled) {
+                        if (uiState.isListening) {
+                            viewModel.stopVoiceListening()
+                        } else {
+                            viewModel.startVoiceListening()
+                            keyboardController?.hide()
+                        }
+                    } else {
+                        // Toggle voice mode on first click
+                        viewModel.toggleVoiceMode()
+                    }
+                },
+                onStopSpeaking = { viewModel.stopVoiceResponse() },
+                onToggleModelSelector = { isModelSelectorExpanded = !isModelSelectorExpanded },
+                isLoading = uiState.isLoading,
+                isVoiceModeEnabled = isVoiceModeEnabled,
+                isListening = uiState.isListening,
+                isSpeaking = uiState.isSpeaking,
+                focusRequester = focusRequester
             )
         }
     }
 }
 
-
-
-
-
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun EnhancedChatInput(
+fun SimpleChatInput(
     value: String,
     onValueChange: (String) -> Unit,
     onSendClick: () -> Unit,
+    onVoiceClick: () -> Unit,
+    onStopSpeaking: () -> Unit,
+    onToggleModelSelector: () -> Unit,
     isLoading: Boolean,
-    focusRequester: FocusRequester,
-    isDarkMode: Boolean,
-    isVoiceModeEnabled: Boolean = false,
-    isListening: Boolean = false,
-    speechConfidence: Float = 0f,
-    onToggleVoiceListening: () -> Unit = {}
+    isVoiceModeEnabled: Boolean,
+    isListening: Boolean,
+    isSpeaking: Boolean,
+    focusRequester: FocusRequester
 ) {
     var isSendPressed by remember { mutableStateOf(false) }
-    
+    var isVoicePressed by remember { mutableStateOf(false) }
+    var isStopPressed by remember { mutableStateOf(false) }
     val scale by animateFloatAsState(
         targetValue = if (isSendPressed) 0.9f else 1f,
         animationSpec = spring(
@@ -511,10 +441,22 @@ fun EnhancedChatInput(
         label = "send_scale"
     )
     
-    val glowAlpha by animateFloatAsState(
-        targetValue = if (value.isNotBlank() && !isLoading) 0.3f else 0.1f,
-        animationSpec = tween(300),
-        label = "glow_alpha"
+    val voiceScale by animateFloatAsState(
+        targetValue = if (isVoicePressed) 0.9f else 1f,
+        animationSpec = spring(
+            dampingRatio = Spring.DampingRatioMediumBouncy,
+            stiffness = Spring.StiffnessLow
+        ),
+        label = "voice_scale"
+    )
+    
+    val stopScale by animateFloatAsState(
+        targetValue = if (isStopPressed) 0.9f else 1f,
+        animationSpec = spring(
+            dampingRatio = Spring.DampingRatioMediumBouncy,
+            stiffness = Spring.StiffnessLow
+        ),
+        label = "stop_scale"
     )
     
     Surface(
@@ -522,110 +464,472 @@ fun EnhancedChatInput(
             .fillMaxWidth()
             .padding(16.dp)
             .shadow(
-                elevation = 8.dp,
-                shape = RoundedCornerShape(24.dp),
-                ambientColor = getGlassGlow(isDarkMode),
-                spotColor = getGlassGlow(isDarkMode)
+                elevation = 4.dp,
+                shape = RoundedCornerShape(28.dp),
+                ambientColor = MaterialTheme.colorScheme.surfaceTint.copy(alpha = 0.1f),
+                spotColor = MaterialTheme.colorScheme.surfaceTint.copy(alpha = 0.1f)
             ),
-        shape = RoundedCornerShape(24.dp),
-        color = if (isDarkMode) DarkSurface.copy(alpha = 0.95f) else LightSurface.copy(alpha = 0.95f),
-        border = BorderStroke(1.dp, getGlassBorder(isDarkMode).copy(alpha = 0.3f))
+        shape = RoundedCornerShape(28.dp),
+        color = MaterialTheme.colorScheme.surface.copy(alpha = 0.7f),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f))
     ) {
         Row(
             modifier = Modifier
                 .padding(horizontal = 20.dp, vertical = 16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // Voice Button (if voice mode is enabled)
+            // Voice Button (only show if voice mode is enabled)
             if (isVoiceModeEnabled) {
-                AnimatedMicrophoneButton(
-                    isListening = isListening,
-                    confidence = speechConfidence,
-                    onToggleListening = onToggleVoiceListening,
-                    isDarkMode = isDarkMode,
-                    modifier = Modifier.size(48.dp)
-                )
+                Surface(
+                    shape = RoundedCornerShape(16.dp),
+                    color = if (isListening) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.primary,
+                    modifier = Modifier
+                        .size(40.dp)
+                        .graphicsLayer(
+                            scaleX = voiceScale,
+                            scaleY = voiceScale
+                        )
+                        .pointerInput(Unit) {
+                            detectTapGestures(
+                                onPress = {
+                                    isVoicePressed = true
+                                    tryAwaitRelease()
+                                    isVoicePressed = false
+                                }
+                            )
+                        }
+                        .clickable { onVoiceClick() }
+                ) {
+                    Icon(
+                        imageVector = if (isListening) Icons.Default.Stop else Icons.Default.Mic,
+                        contentDescription = if (isListening) "Stop Recording" else "Start Voice Input",
+                        tint = MaterialTheme.colorScheme.onPrimary,
+                        modifier = Modifier.padding(8.dp)
+                    )
+                }
                 
                 Spacer(modifier = Modifier.width(12.dp))
             }
             
-            TextField(
-                value = value,
-                onValueChange = onValueChange,
-                modifier = Modifier
-                    .weight(1f)
-                    .focusRequester(focusRequester),
-                placeholder = {
-                    Text(
-                        text = if (isVoiceModeEnabled) "Tap mic to speak..." else "Message Draven...",
-                        color = DarkOnSurface.copy(alpha = 0.6f),
-                        fontSize = 16.sp
+            // Stop Speaking Button (only show when AI is speaking)
+            if (isSpeaking) {
+                Surface(
+                    shape = RoundedCornerShape(16.dp),
+                    color = MaterialTheme.colorScheme.error,
+                    modifier = Modifier
+                        .size(40.dp)
+                        .graphicsLayer(
+                            scaleX = stopScale,
+                            scaleY = stopScale
+                        )
+                        .pointerInput(Unit) {
+                            detectTapGestures(
+                                onPress = {
+                                    isStopPressed = true
+                                    tryAwaitRelease()
+                                    isStopPressed = false
+                                }
+                            )
+                        }
+                        .clickable { onStopSpeaking() }
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.VolumeOff,
+                        contentDescription = "Stop AI Speaking",
+                        tint = MaterialTheme.colorScheme.onError,
+                        modifier = Modifier.padding(8.dp)
                     )
-                },
-                colors = TextFieldDefaults.colors(
-                    focusedContainerColor = Color.Transparent,
-                    unfocusedContainerColor = Color.Transparent,
-                    disabledContainerColor = Color.Transparent,
-                    focusedIndicatorColor = Color.Transparent,
-                    unfocusedIndicatorColor = Color.Transparent,
-                    disabledIndicatorColor = Color.Transparent,
-                    cursorColor = DravenNeon,
-                    focusedTextColor = DarkOnSurface,
-                    unfocusedTextColor = DarkOnSurface
-                ),
-                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Send),
-                keyboardActions = KeyboardActions(onSend = { onSendClick() }),
-                maxLines = 4,
-                textStyle = androidx.compose.ui.text.TextStyle(
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.Normal
+                }
+                
+                Spacer(modifier = Modifier.width(12.dp))
+            }
+            
+            // Large Input Field (hide if voice mode is active and listening)
+            if (!isVoiceModeEnabled || !isListening) {
+                TextField(
+                    value = value,
+                    onValueChange = onValueChange,
+                    modifier = Modifier
+                        .weight(1f)
+                        .focusRequester(focusRequester),
+                    placeholder = {
+                        Text(
+                            text = if (isVoiceModeEnabled) "Tap mic to speak..." else "Message Draven...",
+                            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
+                            style = MaterialTheme.typography.bodyLarge
+                        )
+                    },
+                    colors = TextFieldDefaults.colors(
+                        focusedContainerColor = Color.Transparent,
+                        unfocusedContainerColor = Color.Transparent,
+                        disabledContainerColor = Color.Transparent,
+                        focusedIndicatorColor = Color.Transparent,
+                        unfocusedIndicatorColor = Color.Transparent,
+                        disabledIndicatorColor = Color.Transparent,
+                        cursorColor = MaterialTheme.colorScheme.primary,
+                        focusedTextColor = MaterialTheme.colorScheme.onSurface,
+                        unfocusedTextColor = MaterialTheme.colorScheme.onSurface
+                    ),
+                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Send),
+                    keyboardActions = KeyboardActions(onSend = { 
+                        if (value.isNotBlank() && !isLoading) {
+                            onSendClick()
+                        }
+                    }),
+                    maxLines = 4,
+                    textStyle = MaterialTheme.typography.bodyLarge
                 )
+            } else {
+                // Show listening indicator when voice mode is active
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(vertical = 12.dp),
+                    contentAlignment = Alignment.CenterStart
+                ) {
+                    Text(
+                        text = "Listening...",
+                        color = MaterialTheme.colorScheme.primary,
+                        style = MaterialTheme.typography.bodyLarge,
+                        fontWeight = FontWeight.Medium
+                    )
+                }
+            }
+            
+            Spacer(modifier = Modifier.width(12.dp))
+            
+            // AI Model Selector Button
+            var isModelButtonPressed by remember { mutableStateOf(false) }
+            val modelButtonScale by animateFloatAsState(
+                targetValue = if (isModelButtonPressed) 0.9f else 1f,
+                animationSpec = spring(
+                    dampingRatio = Spring.DampingRatioMediumBouncy,
+                    stiffness = Spring.StiffnessLow
+                ),
+                label = "model_button_scale"
             )
             
-            Spacer(modifier = Modifier.width(16.dp))
-            
-            // Enhanced Send Button with animations
             Surface(
-                onClick = {
-                    if (value.isNotBlank() && !isLoading) {
-                        onSendClick()
-                    }
-                },
-                enabled = value.isNotBlank() && !isLoading,
-                shape = RoundedCornerShape(20.dp),
-                color = if (value.isNotBlank() && !isLoading) DravenNeon else Color.White.copy(alpha = 0.1f),
-                border = BorderStroke(
-                    1.dp,
-                    if (value.isNotBlank() && !isLoading) DravenNeon else Color.White.copy(alpha = 0.2f)
-                ),
+                shape = RoundedCornerShape(16.dp),
+                color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
+                border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.3f)),
                 modifier = Modifier
+                    .size(40.dp)
                     .graphicsLayer(
-                        scaleX = scale,
-                        scaleY = scale
+                        scaleX = modelButtonScale,
+                        scaleY = modelButtonScale
                     )
                     .pointerInput(Unit) {
                         detectTapGestures(
                             onPress = {
-                                if (value.isNotBlank() && !isLoading) {
-                                    isSendPressed = true
-                                    tryAwaitRelease()
-                                    isSendPressed = false
-                                }
+                                isModelButtonPressed = true
+                                tryAwaitRelease()
+                                isModelButtonPressed = false
                             }
                         )
                     }
-                    .shadow(
-                        elevation = if (value.isNotBlank() && !isLoading) 8.dp else 4.dp,
-                        shape = RoundedCornerShape(20.dp),
-                        ambientColor = DravenNeon.copy(alpha = glowAlpha),
-                        spotColor = DravenNeon.copy(alpha = glowAlpha)
-                    )
+                    .clickable { onToggleModelSelector() }
             ) {
                 Icon(
-                    imageVector = Icons.AutoMirrored.Filled.Send,
-                    contentDescription = "Send",
-                    tint = if (value.isNotBlank() && !isLoading) Color.White else Color.White.copy(alpha = 0.3f),
-                    modifier = Modifier.padding(16.dp)
+                    imageVector = Icons.Default.Psychology,
+                    contentDescription = "Select AI Model",
+                    tint = MaterialTheme.colorScheme.onSurface,
+                    modifier = Modifier.padding(8.dp)
+                )
+            }
+            
+            Spacer(modifier = Modifier.width(12.dp))
+            
+            // Send Button (hide if voice mode is active and listening)
+            if (!isVoiceModeEnabled || !isListening) {
+                Surface(
+                    shape = RoundedCornerShape(20.dp),
+                    color = if (value.isNotBlank() && !isLoading) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
+                    border = BorderStroke(
+                        1.dp,
+                        if (value.isNotBlank() && !isLoading) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outline.copy(alpha = 0.3f)
+                    ),
+                    modifier = Modifier
+                        .graphicsLayer(
+                            scaleX = scale,
+                            scaleY = scale
+                        )
+                        .pointerInput(Unit) {
+                            detectTapGestures(
+                                onPress = {
+                                    if (value.isNotBlank() && !isLoading) {
+                                        isSendPressed = true
+                                        tryAwaitRelease()
+                                        isSendPressed = false
+                                    }
+                                }
+                            )
+                        }
+                        .clickable(enabled = value.isNotBlank() && !isLoading) {
+                            if (value.isNotBlank() && !isLoading) {
+                                onSendClick()
+                            }
+                        }
+                ) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.Send,
+                        contentDescription = "Send",
+                        tint = if (value.isNotBlank() && !isLoading) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.3f),
+                        modifier = Modifier.padding(12.dp)
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun OverflowMenuDialog(
+    onDismiss: () -> Unit,
+    onCriticalThinkingToggle: () -> Unit,
+    onAnimationToggle: () -> Unit,
+    onHistoryClick: () -> Unit,
+    onAnalyticsClick: () -> Unit,
+    onSettingsClick: () -> Unit,
+    isCriticalThinkingEnabled: Boolean,
+    isAnimationEnabled: Boolean
+) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .clickable(
+                interactionSource = remember { MutableInteractionSource() },
+                indication = null
+            ) { onDismiss() },
+        contentAlignment = Alignment.TopEnd
+    ) {
+        AnimatedVisibility(
+            visible = true,
+            enter = fadeIn(animationSpec = tween(200)) + 
+                    slideInHorizontally(
+                        initialOffsetX = { it / 2 },
+                        animationSpec = tween(200)
+                    ),
+            exit = fadeOut(animationSpec = tween(150)) + 
+                   slideOutHorizontally(
+                       targetOffsetX = { it / 2 },
+                       animationSpec = tween(150)
+                   )
+        ) {
+            Surface(
+                modifier = Modifier
+                    .padding(top = 80.dp, end = 16.dp)
+                    .width(280.dp)
+                    .wrapContentHeight()
+                    .shadow(
+                        elevation = 16.dp,
+                        shape = RoundedCornerShape(16.dp),
+                        ambientColor = MaterialTheme.colorScheme.surfaceTint,
+                        spotColor = MaterialTheme.colorScheme.surfaceTint
+                    )
+                    .clickable(
+                        interactionSource = remember { MutableInteractionSource() },
+                        indication = null
+                    ) { /* Prevent click-through */ },
+                shape = RoundedCornerShape(16.dp),
+                color = MaterialTheme.colorScheme.surface.copy(alpha = 0.95f),
+                border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.3f))
+            ) {
+                Column(
+                    modifier = Modifier.padding(vertical = 8.dp)
+                ) {
+                    // Header with back button
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp, vertical = 12.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = "Menu",
+                            style = MaterialTheme.typography.titleMedium,
+                            color = MaterialTheme.colorScheme.onSurface,
+                            modifier = Modifier.weight(1f)
+                        )
+                        
+                        IconButton(
+                            onClick = onDismiss,
+                            modifier = Modifier.size(32.dp)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Close,
+                                contentDescription = "Close Menu",
+                                tint = MaterialTheme.colorScheme.onSurface,
+                                modifier = Modifier.size(20.dp)
+                            )
+                        }
+                    }
+                    
+                    HorizontalDivider(
+                        color = MaterialTheme.colorScheme.outline.copy(alpha = 0.3f),
+                        thickness = 1.dp,
+                        modifier = Modifier.padding(horizontal = 16.dp)
+                    )
+                    
+                    OverflowMenuItem(
+                        icon = Icons.Default.Psychology,
+                        title = "Critical Thinking",
+                        subtitle = if (isCriticalThinkingEnabled) "Enabled" else "Disabled",
+                        onClick = {
+                            onCriticalThinkingToggle()
+                            onDismiss()
+                        },
+                        isActive = isCriticalThinkingEnabled
+                    )
+                    
+                    HorizontalDivider(
+                        color = MaterialTheme.colorScheme.outline.copy(alpha = 0.3f),
+                        thickness = 1.dp,
+                        modifier = Modifier.padding(horizontal = 16.dp)
+                    )
+                    
+                    OverflowMenuItem(
+                        icon = Icons.Default.Speed,
+                        title = "Animations",
+                        subtitle = if (isAnimationEnabled) "Enabled" else "Disabled",
+                        onClick = {
+                            onAnimationToggle()
+                            onDismiss()
+                        },
+                        isActive = isAnimationEnabled
+                    )
+                    
+                    HorizontalDivider(
+                        color = MaterialTheme.colorScheme.outline.copy(alpha = 0.3f),
+                        thickness = 1.dp,
+                        modifier = Modifier.padding(horizontal = 16.dp)
+                    )
+                    
+                    OverflowMenuItem(
+                        icon = Icons.Default.History,
+                        title = "History",
+                        subtitle = "View chat history",
+                        onClick = {
+                            onHistoryClick()
+                        },
+                        isActive = false
+                    )
+                    
+                    HorizontalDivider(
+                        color = MaterialTheme.colorScheme.outline.copy(alpha = 0.3f),
+                        thickness = 1.dp,
+                        modifier = Modifier.padding(horizontal = 16.dp)
+                    )
+                    
+                    OverflowMenuItem(
+                        icon = Icons.Default.Analytics,
+                        title = "Insights & Analytics",
+                        subtitle = "View usage analytics and insights",
+                        onClick = {
+                            onAnalyticsClick()
+                        },
+                        isActive = false
+                    )
+                    
+                    HorizontalDivider(
+                        color = MaterialTheme.colorScheme.outline.copy(alpha = 0.3f),
+                        thickness = 1.dp,
+                        modifier = Modifier.padding(horizontal = 16.dp)
+                    )
+                    
+                    OverflowMenuItem(
+                        icon = Icons.Default.Settings,
+                        title = "Settings",
+                        subtitle = "Configure app settings",
+                        onClick = {
+                            onSettingsClick()
+                        },
+                        isActive = false
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun OverflowMenuItem(
+    icon: androidx.compose.ui.graphics.vector.ImageVector,
+    title: String,
+    subtitle: String,
+    onClick: () -> Unit,
+    isActive: Boolean
+) {
+    var isPressed by remember { mutableStateOf(false) }
+    val scale by animateFloatAsState(
+        targetValue = if (isPressed) 0.95f else 1f,
+        animationSpec = spring(
+            dampingRatio = Spring.DampingRatioMediumBouncy,
+            stiffness = Spring.StiffnessLow
+        ),
+        label = "menu_item_scale"
+    )
+    
+    Surface(
+        onClick = onClick,
+        modifier = Modifier
+            .fillMaxWidth()
+            .graphicsLayer(
+                scaleX = scale,
+                scaleY = scale
+            )
+            .pointerInput(Unit) {
+                detectTapGestures(
+                    onPress = {
+                        isPressed = true
+                        tryAwaitRelease()
+                        isPressed = false
+                    }
+                )
+            },
+        color = if (isActive) MaterialTheme.colorScheme.primaryContainer else Color.Transparent
+    ) {
+        Row(
+            modifier = Modifier
+                .padding(horizontal = 16.dp, vertical = 12.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Surface(
+                shape = RoundedCornerShape(8.dp),
+                color = if (isActive) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surfaceVariant,
+                modifier = Modifier.size(40.dp)
+            ) {
+                Icon(
+                    imageVector = icon,
+                    contentDescription = title,
+                    tint = if (isActive) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurface,
+                    modifier = Modifier.padding(8.dp)
+                )
+            }
+            
+            Spacer(modifier = Modifier.width(12.dp))
+            
+            Column(
+                modifier = Modifier.weight(1f)
+            ) {
+                Text(
+                    text = title,
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+                Text(
+                    text = subtitle,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
+                )
+            }
+            
+            if (isActive) {
+                Icon(
+                    imageVector = Icons.Default.Check,
+                    contentDescription = "Active",
+                    tint = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier.size(20.dp)
                 )
             }
         }

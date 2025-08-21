@@ -4,8 +4,12 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.compose.ui.platform.LocalContext
+import com.samikhan.draven.data.analytics.AnalyticsManager
+import com.samikhan.draven.data.database.DravenDatabase
 import com.samikhan.draven.data.preferences.ThemePreferences
 import com.samikhan.draven.ui.screens.ChatScreen
+import com.samikhan.draven.ui.screens.DataVisualizationScreen
 import com.samikhan.draven.ui.screens.HistoryScreen
 import com.samikhan.draven.ui.screens.SettingsScreen
 import com.samikhan.draven.ui.screens.SplashScreen
@@ -14,6 +18,7 @@ sealed class Screen(val route: String) {
     object Splash : Screen("splash")
     object Chat : Screen("chat")
     object History : Screen("history")
+    object Analytics : Screen("analytics")
     object Settings : Screen("settings")
 }
 
@@ -42,6 +47,9 @@ fun DravenNavigation(
                 onNavigateToHistory = {
                     navController.navigate(Screen.History.route)
                 },
+                onNavigateToAnalytics = {
+                    navController.navigate(Screen.Analytics.route)
+                },
                 onNavigateToSettings = {
                     navController.navigate(Screen.Settings.route)
                 },
@@ -60,6 +68,19 @@ fun DravenNavigation(
                     // TODO: Load the selected conversation in ChatScreen
                 },
                 themePreferences = themePreferences
+            )
+        }
+        
+        composable(Screen.Analytics.route) {
+            val context = LocalContext.current
+            DataVisualizationScreen(
+                analyticsManager = AnalyticsManager(
+                    database = DravenDatabase.getDatabase(context),
+                    context = context
+                ),
+                onNavigateBack = {
+                    navController.popBackStack()
+                }
             )
         }
         

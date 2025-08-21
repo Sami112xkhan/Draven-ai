@@ -11,6 +11,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.samikhan.draven.data.model.ChatMessage
 import com.samikhan.draven.data.model.Conversation
+import com.samikhan.draven.data.model.AIModelManager
+import com.samikhan.draven.data.analytics.AnalyticsManager
 import com.samikhan.draven.data.repository.ChatRepository
 import com.samikhan.draven.voice.VoiceManager
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,7 +23,8 @@ import kotlinx.coroutines.launch
 class ChatViewModel(
     private val repository: ChatRepository, 
     private val voiceManager: VoiceManager,
-    private val context: Context
+    private val context: Context,
+    private val analyticsManager: AnalyticsManager
 ) : ViewModel() {
     
     private val _uiState = MutableStateFlow(ChatUiState())
@@ -34,6 +37,8 @@ class ChatViewModel(
     // Permission state
     private val _hasMicrophonePermission = MutableStateFlow(false)
     val hasMicrophonePermission: StateFlow<Boolean> = _hasMicrophonePermission.asStateFlow()
+    
+
     
     init {
         // Check initial permission status
@@ -52,7 +57,10 @@ class ChatViewModel(
                 if (lastMessage?.role == com.samikhan.draven.data.model.MessageRole.ASSISTANT && 
                     lastMessage.content.isNotEmpty() && 
                     !lastMessage.isLoading) {
-                    speakResponse(lastMessage.content)
+                    // Speak if voice mode is enabled (regardless of critical thinking)
+                    if (_isVoiceModeEnabled.value) {
+                        speakResponse(lastMessage.content)
+                    }
                 }
             }
         }
@@ -93,12 +101,17 @@ class ChatViewModel(
         if (content.isBlank()) return
         
         viewModelScope.launch {
+            // Track analytics after sending message
+            analyticsManager.updateDailyUsageStatistics()
+            
             repository.sendMessage(content.trim(), _uiState.value.detailedThinking)
             _uiState.value = _uiState.value.copy(
                 inputText = ""
             )
         }
     }
+    
+
     
     fun updateInputText(text: String) {
         _uiState.value = _uiState.value.copy(inputText = text)
@@ -138,6 +151,11 @@ class ChatViewModel(
     
     fun stopSpeaking() {
         voiceManager.stopSpeaking()
+    }
+    
+    fun stopVoiceResponse() {
+        voiceManager.stopSpeaking()
+        _uiState.value = _uiState.value.copy(isSpeaking = false)
     }
     
     fun speakResponse(text: String) {
@@ -191,7 +209,11 @@ class ChatViewModel(
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             val voiceManager = VoiceManager(context)
-            return ChatViewModel(ChatRepository(context), voiceManager, context) as T
+            val analyticsManager = AnalyticsManager(
+                database = com.samikhan.draven.data.database.DravenDatabase.getDatabase(context),
+                context = context
+            )
+            return ChatViewModel(ChatRepository(context), voiceManager, context, analyticsManager) as T
         }
     }
 }
