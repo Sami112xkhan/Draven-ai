@@ -27,6 +27,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import androidx.compose.runtime.DisposableEffect
+import com.samikhan.draven.data.preferences.StartupPreferences
 
 @Composable
 fun SplashScreen(
@@ -36,16 +37,23 @@ fun SplashScreen(
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
     val isDarkMode by isDarkModeFlow.collectAsState(initial = true)
+    
+    // Startup preferences
+    val startupPreferences = remember { StartupPreferences(context) }
+    val shouldShowVideo by startupPreferences.shouldShowStartupVideo.collectAsState()
 
     var isVideoReady by remember { mutableStateOf(false) }
-    var isTextVisible by remember { mutableStateOf(false) }
     var isTransitioning by remember { mutableStateOf(false) }
-
-    val textAlpha by animateFloatAsState(
-        targetValue = if (isTextVisible) 1f else 0f,
-        animationSpec = tween(1000, easing = EaseInOutCubic),
-        label = "text_alpha"
-    )
+    
+    // If startup video should not be shown, skip directly to main app
+    LaunchedEffect(shouldShowVideo) {
+        if (!shouldShowVideo) {
+            // Mark as shown for future reference and proceed to main app
+            startupPreferences.markStartupVideoShown()
+            onSplashComplete()
+            return@LaunchedEffect
+        }
+    }
 
     val transitionAlpha by animateFloatAsState(
         targetValue = if (isTransitioning) 0f else 1f,
@@ -92,136 +100,89 @@ fun SplashScreen(
     // --- ExoPlayer for video ---
     val videoPlayer = remember {
         ExoPlayer.Builder(context).build().apply {
-            val mediaItem = MediaItem.fromUri("android.resource://${context.packageName}/raw/animation")
-            setMediaItem(mediaItem)
-            prepare()
-            playWhenReady = true
-            repeatMode = Player.REPEAT_MODE_OFF
-        }
-    }
-
-    // --- ExoPlayer for audio ---
-    val audioPlayer = remember {
-        ExoPlayer.Builder(context).build().apply {
-            val mediaItem = MediaItem.fromUri("android.resource://${context.packageName}/raw/wakingup")
-            setMediaItem(mediaItem)
-            prepare()
-            playWhenReady = true
-            repeatMode = Player.REPEAT_MODE_OFF
-            volume = 1f
-        }
-    }
-
-    // Fade out audio at the end
-    LaunchedEffect(isVideoReady) {
-        if (isVideoReady) {
-            delay(1500)
-            // Fade out over 500ms
-            val fadeSteps = 10
-            val fadeDuration = 500L
-            val stepDuration = fadeDuration / fadeSteps
-            for (i in fadeSteps downTo 1) {
-                audioPlayer.volume = i / fadeSteps.toFloat()
-                delay(stepDuration)
-            }
-            audioPlayer.volume = 0f
-        }
-    }
-
-    DisposableEffect(Unit) {
-        onDispose {
-            videoPlayer.release()
-            audioPlayer.release()
-        }
-    }
-
-    LaunchedEffect(Unit) {
-        delay(500)
-        isTextVisible = true
-    }
-
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(backgroundGradient)
-            .alpha(transitionAlpha),
-        contentAlignment = Alignment.Center
-    ) {
-        // Video Player
-        AndroidView(
-            factory = { context ->
-                videoPlayer.addListener(object : Player.Listener {
+            try {
+                val mediaItem = MediaItem.fromUri("android.resource://${context.packageName}/${com.samikhan.draven.R.raw.animation}")
+                setMediaItem(mediaItem)
+                prepare()
+                playWhenReady = true
+                repeatMode = Player.REPEAT_MODE_OFF
+                
+                addListener(object : Player.Listener {
+                    override fun onPlayerError(error: androidx.media3.common.PlaybackException) {
+                        android.util.Log.e("SplashScreen", "Video player error: ${error.message}")
+                        // Skip to next screen if video fails
+                        coroutineScope.launch {
+                            delay(2000) // Show splash for 2 seconds even if video fails
+                            onSplashComplete()
+                        }
+                    }
                     override fun onPlaybackStateChanged(playbackState: Int) {
+                        android.util.Log.d("SplashScreen", "Video playback state: $playbackState")
                         when (playbackState) {
                             Player.STATE_READY -> {
+                                android.util.Log.d("SplashScreen", "Video is ready to play")
                                 isVideoReady = true
                             }
                             Player.STATE_ENDED -> {
+                                android.util.Log.d("SplashScreen", "Video playback ended")
                                 coroutineScope.launch {
-                                    delay(500)
+                                    // Mark startup video as shown
+                                    startupPreferences.markStartupVideoShown()
+                                    delay(200) // Reduced from 500ms
                                     isTransitioning = true
-                                    delay(500)
+                                    delay(300) // Reduced from 500ms
                                     onSplashComplete()
                                 }
+                            }
+                            Player.STATE_BUFFERING -> {
+                                android.util.Log.d("SplashScreen", "Video is buffering")
+                            }
+                            Player.STATE_IDLE -> {
+                                android.util.Log.d("SplashScreen", "Video player is idle")
                             }
                         }
                     }
                 })
-                PlayerView(context).apply {
-                    player = videoPlayer
-                    useController = false
-                    setShowBuffering(PlayerView.SHOW_BUFFERING_NEVER)
+            } catch (e: Exception) {
+                android.util.Log.e("SplashScreen", "Failed to load video: ${e.message}")
+                // Fallback: just show splash for 3 seconds
+                coroutineScope.launch {
+                    delay(3000)
+                    onSplashComplete()
                 }
-            },
-            modifier = Modifier.fillMaxSize()
-        )
+            }
+        }
+    }
 
-        // Glass overlay
+
+
+    DisposableEffect(Unit) {
+        onDispose {
+            videoPlayer.release()
+        }
+    }
+
+    // Only render the video UI if the video should be shown
+    if (shouldShowVideo) {
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(
-                    brush = Brush.radialGradient(
-                        colors = listOf(
-                            glassOverlayColor,
-                            glassOverlayColor,
-                            Color.Transparent
-                        )
-                    )
-                )
-        )
-
-        // Centered text with glass effect
-        Box(
-            modifier = Modifier
-                .clip(RoundedCornerShape(16.dp))
-                .background(
-                    brush = Brush.linearGradient(
-                        colors = if (isDarkMode) {
-                            listOf(
-                                glassColor.copy(alpha = 0.8f),
-                                glassColor.copy(alpha = 0.6f)
-                            )
-                        } else {
-                            listOf(
-                                Color(0xCCFFFFFF),
-                                Color(0x99FFFFFF)
-                            )
-                        }
-                    )
-                )
-                .padding(24.dp)
-                .alpha(textAlpha),
+                .background(backgroundGradient)
+                .alpha(transitionAlpha),
             contentAlignment = Alignment.Center
         ) {
-            Text(
-                text = "Draven is waking up...",
-                style = MaterialTheme.typography.headlineMedium.copy(
-                    fontWeight = FontWeight.Light,
-                    fontSize = 20.sp
-                ),
-                color = textColor,
-                modifier = Modifier.alpha(textAlpha)
+            // Video Player - Full Screen
+            AndroidView(
+                factory = { context ->
+                    PlayerView(context).apply {
+                        player = videoPlayer
+                        useController = false
+                        setShowBuffering(PlayerView.SHOW_BUFFERING_NEVER)
+                        // Make video fill the entire screen
+                        resizeMode = androidx.media3.ui.AspectRatioFrameLayout.RESIZE_MODE_ZOOM
+                    }
+                },
+                modifier = Modifier.fillMaxSize()
             )
         }
     }

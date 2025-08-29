@@ -22,6 +22,7 @@ import androidx.compose.material.icons.filled.Mic
 import androidx.compose.material.icons.filled.MicOff
 import androidx.compose.material.icons.filled.Speed
 import androidx.compose.material.icons.filled.Tune
+import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -152,7 +153,7 @@ fun SettingsScreen(
                         )
                     }
                     
-                    // Voice Settings
+                    // Voice Settings (only when authenticated)
                     AnimatedVisibility(
                         visible = true,
                         enter = slideInVertically(
@@ -164,6 +165,21 @@ fun SettingsScreen(
                             isDarkMode = isDarkMode
                         )
                     }
+                }
+                
+                // Startup Video Settings (always visible)
+                AnimatedVisibility(
+                    visible = true,
+                    enter = slideInVertically(
+                        animationSpec = tween(300, delayMillis = 200),
+                        initialOffsetY = { it }
+                    ) + fadeIn(animationSpec = tween(300, delayMillis = 200))
+                ) {
+                    StartupVideoSettingsSection(
+                        onEnableStartupVideo = viewModel::enableStartupVideoNextTime,
+                        isStartupVideoEnabled = uiState.startupVideoEnabled,
+                        isDarkMode = isDarkMode
+                    )
                 }
 
                 // Status Messages
@@ -622,6 +638,124 @@ fun VoiceSettingsSection(
                         inactiveTrackColor = getOnSurfaceColor(isDarkMode).copy(alpha = 0.3f)
                     )
                 )
+            }
+        }
+    }
+}
+
+@Composable
+fun StartupVideoSettingsSection(
+    onEnableStartupVideo: () -> Unit,
+    isStartupVideoEnabled: Boolean,
+    isDarkMode: Boolean
+) {
+    var showSuccessMessage by remember { mutableStateOf(false) }
+    
+    LaunchedEffect(isStartupVideoEnabled) {
+        if (isStartupVideoEnabled) {
+            showSuccessMessage = true
+            delay(3000) // Show success message for 3 seconds
+            showSuccessMessage = false
+        }
+    }
+    
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+        colors = CardDefaults.cardColors(
+            containerColor = getGlassBackground(isDarkMode)
+        ),
+        border = BorderStroke(1.dp, getGlassBorder(isDarkMode))
+    ) {
+        Column(
+            modifier = Modifier.padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            // Section Header
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                Icon(
+                    imageVector = Icons.Default.PlayArrow,
+                    contentDescription = null,
+                    tint = DravenNeon,
+                    modifier = Modifier.size(20.dp)
+                )
+                Text(
+                    text = "Startup Animation",
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = getOnSurfaceColor(isDarkMode)
+                )
+            }
+            
+            Text(
+                text = "The startup video only plays on the first app launch. Use the button below to replay it on your next app launch.",
+                fontSize = 14.sp,
+                color = getOnSurfaceColor(isDarkMode).copy(alpha = 0.7f),
+                lineHeight = 18.sp
+            )
+            
+            // Enable Startup Video Button
+            Button(
+                onClick = onEnableStartupVideo,
+                modifier = Modifier.fillMaxWidth(),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = DravenNeon,
+                    contentColor = Color.Black
+                ),
+                enabled = !isStartupVideoEnabled
+            ) {
+                Icon(
+                    imageVector = Icons.Default.PlayArrow,
+                    contentDescription = null,
+                    modifier = Modifier.size(18.dp)
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+                Text(
+                    text = if (isStartupVideoEnabled) "Startup Video Enabled for Next Launch" else "Play Startup Video Next Time",
+                    fontWeight = FontWeight.Medium
+                )
+            }
+            
+            // Success Message
+            AnimatedVisibility(
+                visible = showSuccessMessage,
+                enter = slideInVertically(
+                    animationSpec = tween(300),
+                    initialOffsetY = { it }
+                ) + fadeIn(animationSpec = tween(300)),
+                exit = slideOutVertically(
+                    animationSpec = tween(300),
+                    targetOffsetY = { it }
+                ) + fadeOut(animationSpec = tween(300))
+            ) {
+                Card(
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = CardDefaults.cardColors(
+                        containerColor = SuccessGreen.copy(alpha = 0.2f)
+                    ),
+                    border = BorderStroke(1.dp, SuccessGreen)
+                ) {
+                    Row(
+                        modifier = Modifier.padding(12.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Check,
+                            contentDescription = null,
+                            tint = SuccessGreen,
+                            modifier = Modifier.size(18.dp)
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(
+                            text = "Startup video will play on your next app launch!",
+                            color = SuccessGreen,
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight.Medium
+                        )
+                    }
+                }
             }
         }
     }

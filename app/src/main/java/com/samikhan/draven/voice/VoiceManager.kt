@@ -101,6 +101,37 @@ class VoiceManager(private val context: Context) {
     private fun initializeTextToSpeech() {
         textToSpeech = TextToSpeech(context) { status ->
             if (status == TextToSpeech.SUCCESS) {
+                // Configure for more natural, ChatGPT-like voice
+                textToSpeech?.apply {
+                    // Set language to English (US) for better quality
+                    language = Locale.US
+                    
+                    // Set speech rate for more natural pace (0.8-1.2 is good range)
+                    setSpeechRate(0.9f)
+                    
+                    // Set pitch for more natural tone (0.8-1.2 is good range)
+                    setPitch(1.0f)
+                    
+                    // Try to use a higher quality voice if available
+                    val voices = voices
+                    val preferredVoice = voices?.find { voice ->
+                        voice.locale == Locale.US && 
+                        voice.quality >= 300 && // Higher quality voices
+                        !voice.isNetworkConnectionRequired && // Offline voices
+                        (voice.name.contains("enhanced", ignoreCase = true) || 
+                         voice.name.contains("premium", ignoreCase = true) ||
+                         voice.name.contains("neural", ignoreCase = true))
+                    } ?: voices?.find { voice ->
+                        voice.locale == Locale.US && 
+                        voice.quality >= 200 &&
+                        !voice.isNetworkConnectionRequired
+                    }
+                    
+                    preferredVoice?.let { voice ->
+                        setVoice(voice)
+                    }
+                }
+                
                 textToSpeech?.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
                     override fun onStart(utteranceId: String?) {
                         _isSpeaking.value = true
@@ -152,7 +183,20 @@ class VoiceManager(private val context: Context) {
         }
         
         onSpeechComplete = onComplete
-        textToSpeech?.speak(text, TextToSpeech.QUEUE_FLUSH, null, "utterance_id")
+        
+        // Clean text for better speech synthesis
+        val cleanText = text
+            .replace(Regex("\\*\\*(.+?)\\*\\*"), "$1") // Remove bold markdown
+            .replace(Regex("\\*(.+?)\\*"), "$1") // Remove italic markdown
+            .replace(Regex("```[\\s\\S]*?```"), "code block") // Replace code blocks
+            .replace(Regex("`(.+?)`"), "code: $1") // Replace inline code
+            .replace(Regex("#{1,6}\\s"), "") // Remove markdown headers
+            .replace("\n\n", ". ") // Replace double newlines with pause
+            .replace("\n", " ") // Replace single newlines with space
+            .trim()
+        
+        // Use QUEUE_FLUSH to replace any currently speaking text
+        textToSpeech?.speak(cleanText, TextToSpeech.QUEUE_FLUSH, null, "utterance_id")
     }
     
     fun stopSpeaking() {

@@ -46,7 +46,7 @@ fun HistoryScreen(
             .fillMaxSize()
             .background(
                 Brush.verticalGradient(
-                    colors = BackgroundGradient
+                    colors = if (isDarkMode) SurfaceGradient else LightSurfaceGradient
                 )
             )
     ) {

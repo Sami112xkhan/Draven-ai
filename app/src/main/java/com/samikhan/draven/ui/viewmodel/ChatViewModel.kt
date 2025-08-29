@@ -41,6 +41,9 @@ class ChatViewModel(
 
     
     init {
+        // Initialize AI Model Manager
+        AIModelManager.initialize(context)
+        
         // Check initial permission status
         checkMicrophonePermission()
         
@@ -52,11 +55,17 @@ class ChatViewModel(
                     isLoading = messages.any { it.isLoading }
                 )
                 
-                // Check for new AI responses to speak
+                // Check for new AI responses to speak and auto-turn off detailed thinking
                 val lastMessage = newMessages.lastOrNull()
                 if (lastMessage?.role == com.samikhan.draven.data.model.MessageRole.ASSISTANT && 
                     lastMessage.content.isNotEmpty() && 
                     !lastMessage.isLoading) {
+                    
+                    // Auto-turn off detailed thinking after each response (saves tokens)
+                    if (_uiState.value.detailedThinking) {
+                        _uiState.value = _uiState.value.copy(detailedThinking = false)
+                    }
+                    
                     // Speak if voice mode is enabled (regardless of critical thinking)
                     if (_isVoiceModeEnabled.value) {
                         speakResponse(lastMessage.content)

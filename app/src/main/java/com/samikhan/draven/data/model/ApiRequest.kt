@@ -8,7 +8,8 @@ data class ApiRequest(
     val top_p: Double = 0.95,
     val frequency_penalty: Int = 0,
     val presence_penalty: Int = 0,
-    val stream: Boolean = false
+    val stream: Boolean = false,
+    val reasoning_effort: String? = null
 )
 
 data class Message(

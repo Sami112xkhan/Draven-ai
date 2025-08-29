@@ -2,82 +2,123 @@ package com.samikhan.draven.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-// Draven Brand Colors
-val DravenPrimary = Color(0xFF6366F1) // Indigo
-val DravenSecondary = Color(0xFF8B5CF6) // Violet
-val DravenAccent = Color(0xFF06B6D4) // Cyan
-val DravenNeon = Color(0xFF00F5FF) // Bright Cyan
+// Material 3 Expressive Color System
+// Primary Brand Colors with deeper tonal palette
+val DravenPrimary = Color(0xFF6750A4) // Material 3 Primary
+val DravenPrimaryContainer = Color(0xFFEADDFF) // Primary Container
+val DravenOnPrimary = Color(0xFFFFFFFF) // On Primary
+val DravenOnPrimaryContainer = Color(0xFF21005D) // On Primary Container
 
-// Enhanced Glass Effect Colors (Dark Mode)
-val GlassBackgroundDark = Color(0x15FFFFFF)
-val GlassBorderDark = Color(0x40FFFFFF)
-val GlassSurfaceDark = Color(0x0AFFFFFF)
-val GlassBlurDark = Color(0x80FFFFFF)
-val GlassGlowDark = Color(0x20FFFFFF)
-val GlassShadowDark = Color(0x40000000)
+// Secondary Brand Colors
+val DravenSecondary = Color(0xFF625B71) // Material 3 Secondary
+val DravenSecondaryContainer = Color(0xFFE8DEF8) // Secondary Container
+val DravenOnSecondary = Color(0xFFFFFFFF) // On Secondary
+val DravenOnSecondaryContainer = Color(0xFF1D192B) // On Secondary Container
 
-// Enhanced Glass Effect Colors (Light Mode)
-val GlassBackgroundLight = Color(0x15FFFFFF)
-val GlassBorderLight = Color(0x30FFFFFF)
-val GlassSurfaceLight = Color(0x0AFFFFFF)
-val GlassBlurLight = Color(0x80FFFFFF)
-val GlassGlowLight = Color(0x20FFFFFF)
-val GlassShadowLight = Color(0x20000000)
+// Tertiary/Accent Colors
+val DravenTertiary = Color(0xFF7D5260) // Material 3 Tertiary
+val DravenTertiaryContainer = Color(0xFFFFD8E4) // Tertiary Container
+val DravenOnTertiary = Color(0xFFFFFFFF) // On Tertiary
+val DravenOnTertiaryContainer = Color(0xFF31111D) // On Tertiary Container
 
-// Advanced Glassmorphism (Dark Mode)
-val GlassmorphismBackgroundDark = Color(0x12FFFFFF)
-val GlassmorphismBorderDark = Color(0x30FFFFFF)
-val GlassmorphismGlowDark = Color(0x15FFFFFF)
+// Error Colors
+val DravenError = Color(0xFFBA1A1A) // Material 3 Error
+val DravenErrorContainer = Color(0xFFFFDAD6) // Error Container
+val DravenOnError = Color(0xFFFFFFFF) // On Error
+val DravenOnErrorContainer = Color(0xFF410002) // On Error Container
 
-// Advanced Glassmorphism (Light Mode)
-val GlassmorphismBackgroundLight = Color(0x12FFFFFF)
-val GlassmorphismBorderLight = Color(0x20FFFFFF)
-val GlassmorphismGlowLight = Color(0x10FFFFFF)
+// Surface Colors - Dark Theme
+val DarkSurface = Color(0xFF1C1B1F) // Material 3 Dark Surface
+val DarkSurfaceVariant = Color(0xFF49454F) // Dark Surface Variant
+val DarkInverseSurface = Color(0xFFE6E1E5) // Dark Inverse Surface
+val DarkInverseOnSurface = Color(0xFF313033) // Dark Inverse On Surface
+val DarkOutline = Color(0xFF938F99) // Dark Outline
+val DarkOutlineVariant = Color(0xFF49454F) // Dark Outline Variant
 
-// Dark Theme Colors
-val DarkBackground = Color(0xFF0A0A0F)
-val DarkSurface = Color(0xFF1A1A2E)
-val DarkPrimary = Color(0xFF6366F1)
-val DarkSecondary = Color(0xFF8B5CF6)
-val DarkOnSurface = Color(0xFFE2E8F0)
-val DarkOnBackground = Color(0xFFF1F5F9)
+// Surface Colors - Light Theme
+val LightSurface = Color(0xFFFFFBFE) // Material 3 Light Surface
+val LightSurfaceVariant = Color(0xFFE7E0EC) // Light Surface Variant
+val LightInverseSurface = Color(0xFF313033) // Light Inverse Surface
+val LightInverseOnSurface = Color(0xFFF4EFF4) // Light Inverse On Surface
+val LightOutline = Color(0xFF79747E) // Light Outline
+val LightOutlineVariant = Color(0xFFCAC4D0) // Light Outline Variant
 
-// Light Theme Colors
-val LightBackground = Color(0xFFFAFAFA)
-val LightSurface = Color(0xFFFFFFFF)
-val LightPrimary = Color(0xFF6366F1)
-val LightSecondary = Color(0xFF8B5CF6)
-val LightOnSurface = Color(0xFF1C1B1F)
-val LightOnBackground = Color(0xFF1C1B1F)
+// Background Colors
+val DarkBackground = Color(0xFF1C1B1F) // Material 3 Dark Background
+val LightBackground = Color(0xFFFFFBFE) // Material 3 Light Background
 
-// Enhanced Chat Bubble Colors
-val UserBubbleColor = Color(0xFF6366F1)
-val UserBubbleText = Color(0xFFFFFFFF)
-val UserBubbleGlow = Color(0x30FFFFFF)
+// On Colors
+val DarkOnSurface = Color(0xFFE6E1E5) // Dark On Surface
+val DarkOnSurfaceVariant = Color(0xFFCAC4D0) // Dark On Surface Variant
+val DarkOnBackground = Color(0xFFE6E1E5) // Dark On Background
 
-val AiBubbleColor = Color(0xFF1E293B)
-val AiBubbleText = Color(0xFFF1F5F9)
-val AiBubbleGlow = Color(0x20FFFFFF)
-val AiBubbleBorder = Color(0x40FFFFFF)
+val LightOnSurface = Color(0xFF1C1B1F) // Light On Surface
+val LightOnSurfaceVariant = Color(0xFF49454F) // Light On Surface Variant
+val LightOnBackground = Color(0xFF1C1B1F) // Light On Background
 
-val SystemBubbleColor = Color(0xFF374151)
-val SystemBubbleText = Color(0xFFE2E8F0)
-val SystemBubbleGlow = Color(0x15FFFFFF)
+// Enhanced Chat Bubble Colors - Material 3 Style
+val UserBubbleColor = DravenPrimary
+val UserBubbleContainer = DravenPrimaryContainer
+val UserBubbleText = DravenOnPrimary
+val UserBubbleGlow = DravenPrimary.copy(alpha = 0.3f)
 
-// Status Colors
-val SuccessGreen = Color(0xFF10B981)
-val ErrorRed = Color(0xFFEF4444)
-val WarningYellow = Color(0xFFF59E0B)
+val AiBubbleColor = DarkSurfaceVariant
+val AiBubbleContainer = LightSurfaceVariant
+val AiBubbleText = DarkOnSurface
+val AiBubbleGlow = DarkOutline.copy(alpha = 0.2f)
+val AiBubbleBorder = DarkOutline.copy(alpha = 0.4f)
 
-// Glassmorphism Gradients
-val GlassGradient = listOf(
-    Color(0x1AFFFFFF),
-    Color(0x0DFFFFFF),
-    Color(0x05FFFFFF)
+val SystemBubbleColor = DarkSurface
+val SystemBubbleContainer = LightSurface
+val SystemBubbleText = DarkOnSurface
+val SystemBubbleGlow = DarkOutline.copy(alpha = 0.15f)
+
+// Status Colors - Material 3 Style
+val SuccessGreen = Color(0xFF4CAF50) // Material 3 Success
+val SuccessContainer = Color(0xFFC8E6C9) // Success Container
+val OnSuccess = Color(0xFF1B5E20) // On Success
+
+val ErrorRed = Color(0xFFF44336) // Material 3 Error
+val ErrorContainer = Color(0xFFFFCDD2) // Error Container
+val OnError = Color(0xFFB71C1C) // On Error
+
+val WarningYellow = Color(0xFFFF9800) // Material 3 Warning
+val WarningContainer = Color(0xFFFFE0B2) // Warning Container
+val OnWarning = Color(0xFFE65100) // On Warning
+
+// Material 3 Expressive Gradients
+val PrimaryGradient = listOf(
+    DravenPrimary,
+    DravenSecondary,
+    DravenTertiary
 )
 
-val BackgroundGradient = listOf(
-    Color(0xFF0A0A0F),
-    Color(0xFF1A1A2E),
-    Color(0xFF0F0F23)
+val SurfaceGradient = listOf(
+    Color(0xFF1C1B1F),
+    Color(0xFF2B2930),
+    Color(0xFF3A3741)
 )
+
+val LightSurfaceGradient = listOf(
+    Color(0xFFFFFBFE),
+    Color(0xFFF5F5F5),
+    Color(0xFFEEEEEE)
+)
+
+// Material 3 State Colors
+val StateHover = Color(0xFF1C1B1F).copy(alpha = 0.08f)
+val StateFocus = Color(0xFF6750A4).copy(alpha = 0.12f)
+val StatePressed = Color(0xFF1C1B1F).copy(alpha = 0.12f)
+val StateDragged = Color(0xFF1C1B1F).copy(alpha = 0.16f)
+
+// Material 3 Elevation Colors
+val ElevationLevel0 = Color(0x00000000)
+val ElevationLevel1 = Color(0xFF1C1B1F).copy(alpha = 0.05f)
+val ElevationLevel2 = Color(0xFF1C1B1F).copy(alpha = 0.08f)
+val ElevationLevel3 = Color(0xFF1C1B1F).copy(alpha = 0.11f)
+val ElevationLevel4 = Color(0xFF1C1B1F).copy(alpha = 0.12f)
+val ElevationLevel5 = Color(0xFF1C1B1F).copy(alpha = 0.14f)
+
+// Legacy colors for backward compatibility (will be removed gradually)
+val DravenNeon = DravenPrimary
+val DravenAccent = DravenTertiary

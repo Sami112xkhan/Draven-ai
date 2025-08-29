@@ -29,7 +29,7 @@
 19        android:allowBackup="true"
 19-->/Users/samikhan/Developer/Draven/wear/src/main/AndroidManifest.xml:11:9-35
 20        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-20-->[androidx.core:core:1.7.0] /Users/samikhan/.gradle/caches/8.13/transforms/d7991905be3ee0f17deba9a7069ca69a/transformed/core-1.7.0/AndroidManifest.xml:24:18-86
+20-->[androidx.core:core:1.7.0] /Users/samikhan/.gradle/caches/8.13/transforms/cd8594f264b083df2ef177a7a1b7314a/transformed/core-1.7.0/AndroidManifest.xml:24:18-86
 21        android:debuggable="true"
 22        android:extractNativeLibs="false"
 23        android:hardwareAccelerated="true"
@@ -87,13 +87,13 @@
 50        </activity>
 51
 52        <service
-52-->[androidx.room:room-runtime:2.4.3] /Users/samikhan/.gradle/caches/8.13/transforms/7a13c55ab4d3c73a3d73694fda73503c/transformed/room-runtime-2.4.3/AndroidManifest.xml:25:9-28:40
+52-->[androidx.room:room-runtime:2.4.3] /Users/samikhan/.gradle/caches/8.13/transforms/4603fa85b293f067e8378602ef401284/transformed/room-runtime-2.4.3/AndroidManifest.xml:25:9-28:40
 53            android:name="androidx.room.MultiInstanceInvalidationService"
-53-->[androidx.room:room-runtime:2.4.3] /Users/samikhan/.gradle/caches/8.13/transforms/7a13c55ab4d3c73a3d73694fda73503c/transformed/room-runtime-2.4.3/AndroidManifest.xml:26:13-74
+53-->[androidx.room:room-runtime:2.4.3] /Users/samikhan/.gradle/caches/8.13/transforms/4603fa85b293f067e8378602ef401284/transformed/room-runtime-2.4.3/AndroidManifest.xml:26:13-74
 54            android:directBootAware="true"
-54-->[androidx.room:room-runtime:2.4.3] /Users/samikhan/.gradle/caches/8.13/transforms/7a13c55ab4d3c73a3d73694fda73503c/transformed/room-runtime-2.4.3/AndroidManifest.xml:27:13-43
+54-->[androidx.room:room-runtime:2.4.3] /Users/samikhan/.gradle/caches/8.13/transforms/4603fa85b293f067e8378602ef401284/transformed/room-runtime-2.4.3/AndroidManifest.xml:27:13-43
 55            android:exported="false" />
-55-->[androidx.room:room-runtime:2.4.3] /Users/samikhan/.gradle/caches/8.13/transforms/7a13c55ab4d3c73a3d73694fda73503c/transformed/room-runtime-2.4.3/AndroidManifest.xml:28:13-37
+55-->[androidx.room:room-runtime:2.4.3] /Users/samikhan/.gradle/caches/8.13/transforms/4603fa85b293f067e8378602ef401284/transformed/room-runtime-2.4.3/AndroidManifest.xml:28:13-37
 56    </application>
 57
 58</manifest>

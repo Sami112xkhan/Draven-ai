@@ -1,5 +1,7 @@
 package com.samikhan.draven.data.model
 
+import android.content.Context
+import android.content.SharedPreferences
 import com.samikhan.draven.ui.components.AIModel
 
 data class ModelConfig(
@@ -21,6 +23,13 @@ class AIModelManager {
     companion object {
         private var currentModelId: String = "nvidia-nemotron"
         private val modelConfigs = mutableMapOf<String, ModelConfig>()
+        private var sharedPreferences: SharedPreferences? = null
+        
+        fun initialize(context: Context) {
+            sharedPreferences = context.getSharedPreferences("draven_model_prefs", Context.MODE_PRIVATE)
+            currentModelId = sharedPreferences?.getString("current_model_id", "nvidia-nemotron") ?: "nvidia-nemotron"
+            setupDefaultModels()
+        }
         
         init {
             // Initialize with default models
@@ -48,14 +57,12 @@ class AIModelManager {
                 subtitle = "Open source GPT for critical thinking",
                 category = "Reasoning",
                 apiEndpoint = "https://integrate.api.nvidia.com/v1/chat/completions",
-                apiKey = "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",
+                apiKey = "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",
                 modelName = "openai/gpt-oss-120b",
                 maxTokens = 4096,
                 temperature = 1.0f,
                 isMax = true
             )
-            
-
         }
         
         fun addModel(config: ModelConfig) {
@@ -69,6 +76,8 @@ class AIModelManager {
         fun setCurrentModel(modelId: String) {
             if (modelConfigs.containsKey(modelId)) {
                 currentModelId = modelId
+                // Save to persistent storage
+                sharedPreferences?.edit()?.putString("current_model_id", modelId)?.apply()
             }
         }
         
@@ -103,6 +112,18 @@ class AIModelManager {
         
         fun updateModelConfig(modelId: String, updatedConfig: ModelConfig) {
             modelConfigs[modelId] = updatedConfig
+        }
+        
+        fun updateApiKey(modelId: String, newApiKey: String) {
+            val config = modelConfigs[modelId]
+            if (config != null) {
+                val updatedConfig = config.copy(apiKey = newApiKey)
+                modelConfigs[modelId] = updatedConfig
+            }
+        }
+        
+        fun getApiKey(modelId: String): String? {
+            return modelConfigs[modelId]?.apiKey
         }
     }
 }

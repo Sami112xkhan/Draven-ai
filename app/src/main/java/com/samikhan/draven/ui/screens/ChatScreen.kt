@@ -116,10 +116,15 @@ fun ChatScreen(
     
     // Model selector state
     var isModelSelectorExpanded by remember { mutableStateOf(false) }
-    val availableModels = remember { AIModelManager.getAllModels() }
+    val availableModels = remember { mutableStateOf(AIModelManager.getAllModels()) }
     
     // Overflow menu state
     var showOverflowMenu by remember { mutableStateOf(false) }
+    
+    // Refresh models when screen is displayed
+    LaunchedEffect(Unit) {
+        availableModels.value = AIModelManager.getAllModels()
+    }
 
     // Enhanced scrolling behavior for animated messages
     LaunchedEffect(uiState.messages.size) {
@@ -343,16 +348,19 @@ fun ChatScreen(
                     onNavigateToSettings() 
                 },
                 isCriticalThinkingEnabled = uiState.detailedThinking,
-                isAnimationEnabled = isAnimationEnabled
+                isAnimationEnabled = isAnimationEnabled,
+                currentModelId = AIModelManager.getCurrentModelId()
             )
         }
 
         // Model Selector Modal
         if (isModelSelectorExpanded) {
             ModelSelector(
-                models = availableModels,
+                models = availableModels.value,
                 onModelSelected = { model ->
                     AIModelManager.setCurrentModel(model.id)
+                    // Update the models list to reflect the new selection
+                    availableModels.value = AIModelManager.getAllModels()
                     isModelSelectorExpanded = false
                 },
                 onDismiss = { isModelSelectorExpanded = false },
@@ -386,7 +394,9 @@ fun ChatScreen(
                 onValueChange = { viewModel.updateInputText(it) },
                 onSendClick = {
                     if (uiState.inputText.isNotBlank()) {
-                        viewModel.sendMessage(uiState.inputText)
+                        val messageText = uiState.inputText
+                        viewModel.sendMessage(messageText)
+                        viewModel.updateInputText("") // Clear input immediately
                         keyboardController?.hide()
                     }
                 },
@@ -665,11 +675,10 @@ fun SimpleChatInput(
                                 }
                             )
                         }
-                        .clickable(enabled = value.isNotBlank() && !isLoading) {
-                            if (value.isNotBlank() && !isLoading) {
-                                onSendClick()
-                            }
-                        }
+                        .clickable(
+                            enabled = value.isNotBlank() && !isLoading,
+                            onClick = onSendClick
+                        )
                 ) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.Send,
@@ -692,7 +701,8 @@ fun OverflowMenuDialog(
     onAnalyticsClick: () -> Unit,
     onSettingsClick: () -> Unit,
     isCriticalThinkingEnabled: Boolean,
-    isAnimationEnabled: Boolean
+    isAnimationEnabled: Boolean,
+    currentModelId: String
 ) {
     Box(
         modifier = Modifier
@@ -765,28 +775,31 @@ fun OverflowMenuDialog(
                         }
                     }
                     
-                    HorizontalDivider(
-                        color = MaterialTheme.colorScheme.outline.copy(alpha = 0.3f),
-                        thickness = 1.dp,
-                        modifier = Modifier.padding(horizontal = 16.dp)
-                    )
-                    
-                    OverflowMenuItem(
-                        icon = Icons.Default.Psychology,
-                        title = "Critical Thinking",
-                        subtitle = if (isCriticalThinkingEnabled) "Enabled" else "Disabled",
-                        onClick = {
-                            onCriticalThinkingToggle()
-                            onDismiss()
-                        },
-                        isActive = isCriticalThinkingEnabled
-                    )
-                    
-                    HorizontalDivider(
-                        color = MaterialTheme.colorScheme.outline.copy(alpha = 0.3f),
-                        thickness = 1.dp,
-                        modifier = Modifier.padding(horizontal = 16.dp)
-                    )
+                    // Only show Critical Thinking option for NeMoTron
+                    if (currentModelId == "nvidia-nemotron") {
+                        HorizontalDivider(
+                            color = MaterialTheme.colorScheme.outline.copy(alpha = 0.3f),
+                            thickness = 1.dp,
+                            modifier = Modifier.padding(horizontal = 16.dp)
+                        )
+                        
+                        OverflowMenuItem(
+                            icon = Icons.Default.Psychology,
+                            title = "Critical Thinking",
+                            subtitle = if (isCriticalThinkingEnabled) "Enabled" else "Disabled",
+                            onClick = {
+                                onCriticalThinkingToggle()
+                                onDismiss()
+                            },
+                            isActive = isCriticalThinkingEnabled
+                        )
+                        
+                        HorizontalDivider(
+                            color = MaterialTheme.colorScheme.outline.copy(alpha = 0.3f),
+                            thickness = 1.dp,
+                            modifier = Modifier.padding(horizontal = 16.dp)
+                        )
+                    }
                     
                     OverflowMenuItem(
                         icon = Icons.Default.Speed,

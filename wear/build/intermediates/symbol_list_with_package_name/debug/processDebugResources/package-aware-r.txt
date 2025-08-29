@@ -1848,7 +1848,9 @@ drawable ic_mtrl_chip_checked_black
 drawable ic_mtrl_chip_checked_circle
 drawable ic_mtrl_chip_close_circle
 drawable ic_send
+drawable ic_speed
 drawable ic_stop
+drawable ic_tune
 drawable material_cursor_drawable
 drawable material_ic_calendar_black_24dp
 drawable material_ic_clear_black_24dp
@@ -1998,6 +2000,7 @@ id all
 id always
 id animateToEnd
 id animateToStart
+id animationToggleButton
 id arc
 id asConfigured
 id async

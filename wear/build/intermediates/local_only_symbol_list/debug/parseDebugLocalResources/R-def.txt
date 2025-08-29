@@ -44,7 +44,9 @@ drawable ic_menu
 drawable ic_mic
 drawable ic_mic_off
 drawable ic_send
+drawable ic_speed
 drawable ic_stop
+drawable ic_tune
 drawable menu_button_bg
 drawable message_bg
 drawable nav_header_bg
@@ -61,6 +63,7 @@ drawable voice_button_bg
 drawable voice_input_bg
 drawable voice_off_bg
 drawable voice_on_bg
+id animationToggleButton
 id chatInput
 id drawerLayout
 id editTextMessage

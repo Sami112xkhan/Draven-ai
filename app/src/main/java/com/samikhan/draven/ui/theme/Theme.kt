@@ -19,30 +19,68 @@ import androidx.core.view.WindowCompat
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
 
+// Material 3 Dark Color Scheme
 private val DarkColorScheme = darkColorScheme(
     primary = DravenPrimary,
+    onPrimary = DravenOnPrimary,
+    primaryContainer = DravenPrimaryContainer,
+    onPrimaryContainer = DravenOnPrimaryContainer,
     secondary = DravenSecondary,
-    tertiary = DravenAccent,
+    onSecondary = DravenOnSecondary,
+    secondaryContainer = DravenSecondaryContainer,
+    onSecondaryContainer = DravenOnSecondaryContainer,
+    tertiary = DravenTertiary,
+    onTertiary = DravenOnTertiary,
+    tertiaryContainer = DravenTertiaryContainer,
+    onTertiaryContainer = DravenOnTertiaryContainer,
+    error = DravenError,
+    onError = DravenOnError,
+    errorContainer = DravenErrorContainer,
+    onErrorContainer = DravenOnErrorContainer,
     background = DarkBackground,
-    surface = DarkSurface,
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
     onBackground = DarkOnBackground,
+    surface = DarkSurface,
     onSurface = DarkOnSurface,
+    surfaceVariant = DarkSurfaceVariant,
+    onSurfaceVariant = DarkOnSurfaceVariant,
+    outline = DarkOutline,
+    outlineVariant = DarkOutlineVariant,
+    inverseSurface = DarkInverseSurface,
+    inverseOnSurface = DarkInverseOnSurface,
+    inversePrimary = DravenPrimaryContainer,
+    surfaceTint = DravenPrimary
 )
 
+// Material 3 Light Color Scheme
 private val LightColorScheme = lightColorScheme(
     primary = DravenPrimary,
+    onPrimary = DravenOnPrimary,
+    primaryContainer = DravenPrimaryContainer,
+    onPrimaryContainer = DravenOnPrimaryContainer,
     secondary = DravenSecondary,
-    tertiary = DravenAccent,
-    background = Color(0xFFFAFAFA),
-    surface = Color(0xFFFFFFFF),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
+    onSecondary = DravenOnSecondary,
+    secondaryContainer = DravenSecondaryContainer,
+    onSecondaryContainer = DravenOnSecondaryContainer,
+    tertiary = DravenTertiary,
+    onTertiary = DravenOnTertiary,
+    tertiaryContainer = DravenTertiaryContainer,
+    onTertiaryContainer = DravenOnTertiaryContainer,
+    error = DravenError,
+    onError = DravenOnError,
+    errorContainer = DravenErrorContainer,
+    onErrorContainer = DravenOnErrorContainer,
+    background = LightBackground,
+    onBackground = LightOnBackground,
+    surface = LightSurface,
+    onSurface = LightOnSurface,
+    surfaceVariant = LightSurfaceVariant,
+    onSurfaceVariant = LightOnSurfaceVariant,
+    outline = LightOutline,
+    outlineVariant = LightOutlineVariant,
+    inverseSurface = LightInverseSurface,
+    inverseOnSurface = LightInverseOnSurface,
+    inversePrimary = DravenPrimary,
+    surfaceTint = DravenPrimary
 )
 
 @Composable
@@ -57,15 +95,15 @@ fun DravenTheme(
             val context = LocalContext.current
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
-
         darkTheme -> DarkColorScheme
         else -> LightColorScheme
     }
+    
     val view = LocalView.current
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
-            // Edge-to-edge design with transparent status bar
+            // Material 3 edge-to-edge design with transparent system bars
             window.statusBarColor = Color.Transparent.toArgb()
             window.navigationBarColor = Color.Transparent.toArgb()
             WindowCompat.getInsetsController(window, view).apply {
@@ -96,15 +134,15 @@ fun DravenTheme(
             val context = LocalContext.current
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
-
         darkTheme -> DarkColorScheme
         else -> LightColorScheme
     }
+    
     val view = LocalView.current
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
-            // Edge-to-edge design with transparent status bar
+            // Material 3 edge-to-edge design with transparent system bars
             window.statusBarColor = Color.Transparent.toArgb()
             window.navigationBarColor = Color.Transparent.toArgb()
             WindowCompat.getInsetsController(window, view).apply {

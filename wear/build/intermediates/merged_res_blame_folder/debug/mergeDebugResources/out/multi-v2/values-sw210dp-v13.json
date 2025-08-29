@@ -4,7 +4,7 @@
             "outputFile": "com.samikhan.draven.wear-mergeDebugResources-29:/values-sw210dp-v13/values-sw210dp-v13.xml",
             "map": [
                 {
-                    "source": "/Users/samikhan/.gradle/caches/8.13/transforms/a3fe24790ac4fae5efb07d91ef36d9dd/transformed/wear-1.2.0/res/values-sw210dp-v13/values-sw210dp-v13.xml",
+                    "source": "/Users/samikhan/.gradle/caches/8.13/transforms/a9de61550496bf39b908524572d9f25f/transformed/wear-1.2.0/res/values-sw210dp-v13/values-sw210dp-v13.xml",
                     "from": {
                         "startLines": "2,3,4,5",
                         "startColumns": "4,4,4,4",

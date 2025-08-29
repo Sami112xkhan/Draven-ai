@@ -14,15 +14,27 @@ private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(na
 class ThemePreferences(private val context: Context) {
     
     private val isDarkModeKey = booleanPreferencesKey("is_dark_mode")
+    private val isAnimationEnabledKey = booleanPreferencesKey("is_animation_enabled")
     
     val isDarkMode: Flow<Boolean> = context.dataStore.data
         .map { preferences ->
             preferences[isDarkModeKey] ?: true // Default to dark mode
         }
     
+    val isAnimationEnabled: Flow<Boolean> = context.dataStore.data
+        .map { preferences ->
+            preferences[isAnimationEnabledKey] ?: true // Default to animations enabled
+        }
+    
     suspend fun setDarkMode(isDark: Boolean) {
         context.dataStore.edit { preferences ->
             preferences[isDarkModeKey] = isDark
+        }
+    }
+    
+    suspend fun setAnimationEnabled(enabled: Boolean) {
+        context.dataStore.edit { preferences ->
+            preferences[isAnimationEnabledKey] = enabled
         }
     }
 } 

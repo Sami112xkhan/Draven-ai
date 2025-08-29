@@ -169,4 +169,6 @@ class ChatRepository(context: Context) {
     }
     
     fun hasApiKey(): Boolean = apiManager.hasApiKey()
+    
+
 } 

@@ -6,15 +6,21 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.samikhan.draven.data.repository.ChatRepository
 import com.samikhan.draven.data.model.AIModelManager
+import com.samikhan.draven.data.preferences.StartupPreferences
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-class SettingsViewModel(private val repository: ChatRepository) : ViewModel() {
+class SettingsViewModel(
+    private val repository: ChatRepository,
+    private val context: Context
+) : ViewModel() {
     
     private val _uiState = MutableStateFlow(SettingsUiState())
     val uiState: StateFlow<SettingsUiState> = _uiState.asStateFlow()
+    
+    private val startupPreferences = StartupPreferences(context)
     
     companion object {
         private const val DEVELOPER_PASSWORD = "mySecret123"
@@ -115,10 +121,17 @@ class SettingsViewModel(private val repository: ChatRepository) : ViewModel() {
         )
     }
     
+    fun enableStartupVideoNextTime() {
+        startupPreferences.enableStartupVideoNextTime()
+        _uiState.value = _uiState.value.copy(
+            startupVideoEnabled = true
+        )
+    }
+    
     class Factory(private val context: Context) : ViewModelProvider.Factory {
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return SettingsViewModel(ChatRepository(context)) as T
+            return SettingsViewModel(ChatRepository(context), context) as T
         }
     }
 }
@@ -129,5 +142,6 @@ data class SettingsUiState(
     val nemotronApiKey: String = "",
     val gptOssApiKey: String = "",
     val isSaved: Boolean = false,
-    val saveError: Boolean = false
+    val saveError: Boolean = false,
+    val startupVideoEnabled: Boolean = false
 ) 

@@ -4,6 +4,10 @@
         "source": "com.samikhan.draven.wear-main-33:/mipmap-anydpi-v26/ic_launcher.xml"
     },
     {
+        "merged": "com.samikhan.draven.wear-debug-31:/drawable_ic_tune.xml.flat",
+        "source": "com.samikhan.draven.wear-main-33:/drawable/ic_tune.xml"
+    },
+    {
         "merged": "com.samikhan.draven.wear-debug-31:/mipmap-mdpi_ic_launcher.png.flat",
         "source": "com.samikhan.draven.wear-main-33:/mipmap-mdpi/ic_launcher.png"
     },
@@ -218,6 +222,10 @@
     {
         "merged": "com.samikhan.draven.wear-debug-31:/drawable_ic_mic_off.xml.flat",
         "source": "com.samikhan.draven.wear-main-33:/drawable/ic_mic_off.xml"
+    },
+    {
+        "merged": "com.samikhan.draven.wear-debug-31:/drawable_ic_speed.xml.flat",
+        "source": "com.samikhan.draven.wear-main-33:/drawable/ic_speed.xml"
     },
     {
         "merged": "com.samikhan.draven.wear-debug-31:/drawable_ic_stop.xml.flat",
